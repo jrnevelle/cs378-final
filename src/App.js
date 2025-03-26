@@ -21,13 +21,13 @@ function Layout() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/trip/:id/home" element={<TripHome/>}/>
-        <Route path="/trip/:id/calendar" element={<Calendar />} />
-        <Route path="/trip/:id/settings" element={<Settings />} />
-        <Route path="/trip/:id/ideas" element={<Ideas />} />
-        <Route path="/trip/:id/profile" element={<Profile/>}/>
-        <Route path="/profile" element={<Profile/>}/>
+        <Route path="cs378-final/" element={<Home/>}/>
+        <Route path="cs378-final/trip/:id/home" element={<TripHome/>}/>
+        <Route path="cs378-final/trip/:id/calendar" element={<Calendar />} />
+        <Route path="cs378-final/trip/:id/settings" element={<Settings />} />
+        <Route path="cs378-final/trip/:id/ideas" element={<Ideas />} />
+        <Route path="cs378-final/trip/:id/profile" element={<Profile/>}/>
+        <Route path="cs378-final/profile" element={<Profile/>}/>
       </Routes>
       {tripPage && <Navbar/>}
     </>

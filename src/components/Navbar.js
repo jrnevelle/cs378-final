@@ -8,7 +8,7 @@ const Navbar = () => {
 
     return (
         <div className="navbar">
-        <Link to="/" className="nav-button">Return to Home</Link>
+        <Link to="cs378-final/" className="nav-button">Return to Home</Link>
         <Link to={`${basePath}/calendar`} className="nav-button">Calendar</Link>
         <Link to={`${basePath}/home`} className="nav-button">Trip Home</Link>
         <Link to={`${basePath}/settings`} className="nav-button">Settings</Link>

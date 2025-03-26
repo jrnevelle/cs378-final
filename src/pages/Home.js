@@ -9,15 +9,15 @@ function Home() {
     return (
         
         <div className="Home">
-            <Link to="/profile" className="profile">
+            <Link to="cs378-final/profile" className="profile">
                 <img src="profile.png" alt="Profile" />
             </Link>
             <div className="trip-carousel">
                 <h3>Current Trips</h3>
                 <Carousel data={trips} />
                 <div className="action-buttons">
-                    <Link to="/plan-new-trip" className="button">Plan New Trip</Link>
-                    <Link to="/past-trips" className="button">View Past Trips</Link>
+                    <Link to="cs378-final/plan-new-trip" className="button">Plan New Trip</Link>
+                    <Link to="cs378-final/past-trips" className="button">View Past Trips</Link>
                 </div>
             </div>
 
