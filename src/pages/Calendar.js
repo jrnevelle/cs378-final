@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 function Calendar() {
   const { id } = useParams();
+  console.log(useParams());
 
   return (
     <div>
