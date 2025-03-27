@@ -6,14 +6,18 @@ import Navbar from "./components/Navbar";
 import Calendar from './pages/Calendar';
 import Settings from './pages/Settings';
 import Ideas from './pages/Ideas';
+import NewIdea from './pages/NewIdea';
+import { IdeaProvider } from './data/IdeaContext';
 import './App.css';
 
 function App() {
-  return (
-    <Router>
-      <Layout />
-    </Router>
-  );
+   return (
+      <Router>
+  <IdeaProvider>
+    <Layout />
+  </IdeaProvider>
+</Router>
+    );
 }
 
 function Layout() {
@@ -28,6 +32,7 @@ function Layout() {
         <Route path="/trip/:id/ideas" element={<Ideas />} />
         <Route path="/trip/:id/profile" element={<Profile/>}/>
         <Route path="/profile" element={<Profile/>}/>
+        <Route path="/trip/:id/ideas/new" element={<NewIdea />} />
       </Routes>
       {tripPage && <Navbar/>}
     </>

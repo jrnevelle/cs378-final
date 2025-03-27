@@ -1,0 +1,65 @@
+.new-idea-container {
+   padding: 20px;
+   font-family: 'Segoe UI', sans-serif;
+ }
+ 
+ .new-idea-header {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   margin-bottom: 15px;
+ }
+ 
+ .back-button {
+   background: none;
+   border: none;
+   font-size: 24px;
+   cursor: pointer;
+ }
+ 
+ h1 {
+   font-size: 28px;
+   font-weight: bold;
+ }
+ 
+ h2 {
+   font-size: 22px;
+   margin: 10px 0 20px;
+ }
+ 
+ .new-idea-form {
+   display: flex;
+   flex-direction: column;
+   gap: 16px;
+ }
+ 
+ .new-idea-form input,
+ .new-idea-form textarea {
+   padding: 10px;
+   border: 1px solid #ccc;
+   border-radius: 8px;
+   font-size: 16px;
+ }
+ 
+ .image-label {
+   font-size: 16px;
+   font-weight: 500;
+   display: flex;
+   flex-direction: column;
+ }
+ 
+ .submit-button {
+   margin-top: 10px;
+   padding: 12px;
+   font-size: 16px;
+   background-color: #007bff;
+   color: white;
+   border: none;
+   border-radius: 8px;
+   cursor: pointer;
+ }
+ 
+ .submit-button:hover {
+   background-color: #0056b3;
+ }
+ 

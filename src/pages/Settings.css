@@ -1,0 +1,133 @@
+.settings-wrapper {
+   max-width: 500px;
+   margin: 0 auto;
+   padding: 30px 20px 100px;
+   font-family: 'Segoe UI', sans-serif;
+   color: #333;
+ }
+ 
+ .settings-header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-bottom: 30px;
+ }
+ 
+ .trip-name-input {
+   font-size: 28px;
+   font-weight: bold;
+   border: none;
+   border-bottom: 2px solid #ccc;
+   outline: none;
+   width: 80%;
+   background: transparent;
+   padding: 5px 0;
+ }
+ 
+ .profile-icon {
+   background: none;
+   border: none;
+   color: #007bff;
+   cursor: pointer;
+ }
+ 
+ .settings-section {
+   background: #f9f9f9;
+   border-radius: 12px;
+   padding: 20px;
+   margin-bottom: 25px;
+   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+ }
+ 
+ .members-list {
+   list-style: none;
+   padding: 0;
+   margin-top: 15px;
+ }
+ 
+ .member-item {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 10px 0;
+   border-bottom: 1px solid #e6e6e6;
+ }
+ 
+ .member-info {
+   display: flex;
+   align-items: center;
+   gap: 12px;
+ }
+ 
+ .member-name {
+   font-weight: 600;
+ }
+ 
+ .member-email {
+   font-size: 13px;
+   color: #555;
+ }
+ 
+ .member-avatar {
+   color: #888;
+ }
+ 
+ .remove-button {
+   background: none;
+   border: none;
+   color: red;
+   font-size: 18px;
+   cursor: pointer;
+ }
+ 
+ .add-button {
+   margin-top: 15px;
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   padding: 10px;
+   background-color: #28a745;
+   border: none;
+   color: white;
+   border-radius: 6px;
+   font-size: 15px;
+   cursor: pointer;
+   width: 100%;
+   justify-content: center;
+ }
+ 
+ .add-button:hover {
+   background-color: #218838;
+ }
+ 
+ .threshold-input {
+   width: 80px;
+   font-size: 18px;
+   padding: 6px 10px;
+   border: 1px solid #ccc;
+   border-radius: 6px;
+   margin-top: 10px;
+ }
+ 
+ .threshold-symbol {
+   margin-left: 10px;
+   font-size: 18px;
+   color: #666;
+ }
+ 
+ .save-button {
+   margin-top: 30px;
+   width: 100%;
+   padding: 12px;
+   background-color: #007bff;
+   border: none;
+   color: white;
+   border-radius: 8px;
+   font-size: 16px;
+   cursor: pointer;
+ }
+ 
+ .save-button:hover {
+   background-color: #0056b3;
+ }
+ 

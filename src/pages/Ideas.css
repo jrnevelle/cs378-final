@@ -1,0 +1,53 @@
+.ideas-title {
+   font-size: 24px;
+   font-weight: bold;
+   margin-bottom: 20px;
+ }
+ 
+ .idea-list {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+ }
+ 
+ .no-ideas {
+   color: #666;
+   text-align: center;
+   margin-top: 30px;
+ }
+ 
+ .idea-card {
+   background: #fdfdfd;
+   border-radius: 12px;
+   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+   overflow: hidden;
+ }
+ 
+ .idea-cover {
+   width: 100%;
+   height: 140px;
+   object-fit: cover;
+ }
+ 
+ .idea-content {
+   padding: 15px;
+ }
+ 
+ .idea-content h3 {
+   margin: 0 0 10px;
+   font-size: 20px;
+ }
+ 
+ .idea-date {
+   font-size: 14px;
+   color: #777;
+   margin-bottom: 6px;
+ }
+ 
+ .idea-tags {
+   margin-top: 10px;
+   display: flex;
+   flex-wrap: wrap;
+   gap: 8px;
+ }
+ 

@@ -1,20 +1,34 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
+import { FaHome, FaCalendarAlt, FaLightbulb, FaCog } from 'react-icons/fa';
 import './Navbar.css';
+import { getTripById } from '../data/getTripById';
 
 const Navbar = () => {
-    const location = useLocation();
-    const basePath = location.pathname.split('/').slice(0, -1).join('/');
+  const location = useLocation();
+  const segments = location.pathname.split('/');
+  const tripId = segments[2];
+   const trip = getTripById(tripId);
+   const tripName = trip?.name || "Trip";
+  const basePath = `/trip/${tripId}`;
 
-    return (
-        <div className="navbar">
-        <Link to="cs378-final/" className="nav-button">Return to Home</Link>
-        <Link to={`${basePath}/calendar`} className="nav-button">Calendar</Link>
-        <Link to={`${basePath}/home`} className="nav-button">Trip Home</Link>
-        <Link to={`${basePath}/settings`} className="nav-button">Settings</Link>
-        <Link to={`${basePath}/ideas`} className="nav-button">Ideas</Link>
-        </div>
-    );
+  return (
+    <div className="navbar">
+      <NavLink to={`${basePath}/home`} className="nav-button">
+        <FaHome />
+      </NavLink>
+      <NavLink to={`${basePath}/calendar`} className="nav-button">
+        <FaCalendarAlt />
+      </NavLink>
+      <div className="trip-name">{tripName}</div>
+      <NavLink to={`${basePath}/ideas`} className="nav-button">
+        <FaLightbulb />
+      </NavLink>
+      <NavLink to={`${basePath}/settings`} className="nav-button">
+        <FaCog />
+      </NavLink>
+    </div>
+  );
 };
 
 export default Navbar;
