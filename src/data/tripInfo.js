@@ -36,7 +36,11 @@ async function addIdea(tripId, ideaData) {
 async function getTrips() {
     const tripsCollection = collection(db, "trips");
     const tripDocs = await getDocs(tripsCollection);
-    const trips = tripDocs.docs.map(doc => doc.data());
+    const trips = tripDocs.docs.map((doc, index) => ({
+        id: doc.id,
+        index: index,
+        ...doc.data()
+    }));
     return trips;
 }
 

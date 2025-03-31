@@ -12,28 +12,25 @@ export const Carousel = ({ data }) => {
   const [trips, setTrips] = useState([]);
 
   useEffect(() => {
-    if (data) {
-      const tripsArray = Object.entries(data).map(([id, tripData]) => ({id, ...tripData}));
-      setTrips(tripsArray);
-    }
+    setTrips(data);
   }, [data]);
 
   const nextSlide = () => {
-    setSlide(slide == data.length - 1 ? 0 : slide + 1);
+    setSlide(slide === data.length - 1 ? 0 : slide + 1);
   };
 
   const prevSlide = () => {
-    setSlide(slide == 0 ? data.length - 1 : slide - 1);
+    setSlide(slide === 0 ? data.length - 1 : slide - 1);
   };
 
   return (
     <div className="carousel">
       <BsArrowLeftCircleFill onClick={prevSlide} className="arrow arrow-left" />
-      {trips.map((item) => {
+      {trips.map((item, index) => {
         return (
           <div
-            key={item.id}
-            className={slide == item.id ? "slide" : "slide slide-hidden"}
+            key={index}
+            className={slide === index ? "slide" : "slide slide-hidden"}
           >
           <img src={item.imageUrl} alt={item.name || "Trip Image"} />
           <div className="title">{item.name}</div>
@@ -51,15 +48,15 @@ export const Carousel = ({ data }) => {
         className="arrow arrow-right"
       />
       <span className="indicators">
-        {trips.map((item) => {
+        {trips.map((item, index) => {
           return (
             <button
-              key={item.id}
+              key={index}
               className={
-                slide == item.id ? "indicator" : "indicator indicator-inactive"
+                slide === index ? "indicator" : "indicator indicator-inactive"
               }
               
-              onClick={() => setSlide(item.id)}
+              onClick={() => setSlide(index)}
             ></button>
           );
         })}
