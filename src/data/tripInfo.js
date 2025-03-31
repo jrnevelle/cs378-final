@@ -18,16 +18,6 @@ async function updateTrip(tripId, updates) {
     await updateDoc(tripRef, updates);
 }
 
-async function getIdeas(tripId) {
-    const ideasRef = collection(db, `trips/${tripId}/ideas`);
-    const ideasSnap = await getDocs(ideasRef);
-    const ideas = [];
-    ideasSnap.forEach(doc => {
-        ideas.push({ id: doc.id, ...doc.data() });
-    });
-    return ideas;
-}
-
 async function addIdea(tripId, ideaData) {
     const ideasRef = collection(db, `trips/${tripId}/ideas`);
     await addDoc(ideasRef, ideaData);
@@ -44,4 +34,20 @@ async function getTrips() {
     return trips;
 }
 
-export { getTripInfo, updateTrip, addIdea, getIdeas, getTrips };
+function getUserId() {
+    return "0";
+}
+
+async function getIdeas(id) {
+    const ideasCollection = collection(db, `trips/${id}/ideas`);
+    const ideaDocs = await getDocs(ideasCollection);
+
+    const ideas = ideaDocs.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+    }));
+
+    return ideas;
+}
+
+export { getTripInfo, updateTrip, addIdea, getIdeas, getTrips, getUserId };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getTripInfo, getIdeas, addIdea, updateTrip } from "../data/tripInfo";
+import { getTripInfo, getIdeas, getUserId, updateTrip } from "../data/tripInfo";
 import { GeoPoint, Timestamp } from "firebase/firestore";
 
 function TripHome() {
@@ -10,6 +10,8 @@ function TripHome() {
   const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
+    const userId = getUserId();
+
     async function fetchTrip() {
       const tripData = await getTripInfo(id);
       if (tripData) {
@@ -20,7 +22,10 @@ function TripHome() {
 
     async function fetchIdeas() {
       const ideasData = await getIdeas(id);
-      setIdeas(ideasData.length);
+      const filtered = ideasData.filter(idea => !idea.archived && 
+        !idea.votes?.yes?.includes(userId) && !idea.votes?.no?.includes(userId)
+      );
+      setIdeas(filtered.length);
     }
 
     fetchTrip();
@@ -44,7 +49,7 @@ function TripHome() {
           <p><strong>Start Date:</strong> {trip.start.toDate().toLocaleString()}</p>
           <p><strong>End Date:</strong> {trip.end.toDate().toLocaleString()}</p>
           <p><strong>Members:</strong> {trip.members?.join(", ")}</p>
-          <p><strong>Ideas:</strong> {ideas}</p>
+          <p><strong>Ideas to Vote On:</strong> {ideas}</p>
           {trip.imageUrl ? (
             <div>
               <h4>Trip Image</h4>
