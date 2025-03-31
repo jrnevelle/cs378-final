@@ -8,6 +8,12 @@
 
 .profile {
     position: absolute;
+    width: 40px;
     top: 20px;
     right: 20px;
+    
+}
+
+.profile img {
+    width: 100%;
 }

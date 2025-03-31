@@ -1,0 +1,43 @@
+import { db } from "./firebaseConfig";
+import { getFirestore, doc, getDoc, addDoc, updateDoc, collection, getDocs } from "firebase/firestore";
+
+async function getTripInfo(tripId) {
+    const tripRef = doc(db, "trips", tripId);
+    const tripSnap = await getDoc(tripRef);
+
+    if (tripSnap.exists()) {
+        return tripSnap.data();
+    } else {
+        console.log("No such trip found!");
+        return null;
+    }
+}
+
+async function updateTrip(tripId, updates) {
+    const tripRef = doc(db, "trips", tripId);
+    await updateDoc(tripRef, updates);
+}
+
+async function getIdeas(tripId) {
+    const ideasRef = collection(db, `trips/${tripId}/ideas`);
+    const ideasSnap = await getDocs(ideasRef);
+    const ideas = [];
+    ideasSnap.forEach(doc => {
+        ideas.push({ id: doc.id, ...doc.data() });
+    });
+    return ideas;
+}
+
+async function addIdea(tripId, ideaData) {
+    const ideasRef = collection(db, `trips/${tripId}/ideas`);
+    await addDoc(ideasRef, ideaData);
+}
+
+async function getTrips() {
+    const tripsCollection = collection(db, "trips");
+    const tripDocs = await getDocs(tripsCollection);
+    const trips = tripDocs.docs.map(doc => doc.data());
+    return trips;
+}
+
+export { getTripInfo, updateTrip, addIdea, getIdeas, getTrips };

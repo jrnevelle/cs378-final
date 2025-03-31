@@ -1,20 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Home.css';
 import { Carousel } from "../components/CardCarousel";
-import { getTrips } from "../data/tripInfo";
+import allTrips from "../data/allTrips.json";
 
-function Home() {
-  const [trips, setTrips] = useState([]);
+function PastTrips() {
+  const trips = allTrips.trips;
   const navigate = useNavigate();
-
-  useEffect(() => {
-    async function fetchTrips() {
-      const tripsData = await getTrips(); 
-      setTrips(tripsData);
-    }
-    fetchTrips();
-  }, []);
 
   const handleTripClick = (id) => {
     navigate(`/trip/${id}/home`);
@@ -26,15 +18,15 @@ function Home() {
         <img src="https://www.tapback.co/api/avatar/nevelle.webp" alt="Profile" />
       </Link>
       <div className="trip-carousel">
-        <h3>Current Trips</h3>
+        <h3>Past Trips</h3>
         <Carousel data={trips} onTripClick={handleTripClick} />
         <div className="action-buttons">
           <Link to="/plan-new-trip" className="button">Plan New Trip</Link>
-          <Link to="/past-trips" className="button">View Past Trips</Link>
+          <Link to="/cs378-final" className="button">View Current Trips</Link>
         </div>
       </div>
     </div>
   );
 }
 
-export default Home;
+export default PastTrips;

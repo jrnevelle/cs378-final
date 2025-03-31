@@ -7,12 +7,12 @@
         },
         {
             "id": 1,
-            "name": "Girl's Trip",
+            "name": "New York City",
             "img": "assets/trip2.jpeg"
         },
         {
             "id": 2,
-            "name": "New York City",
+            "name": "Girls Trip!",
             "img": "assets/trip3.jpg"
         }
     ]

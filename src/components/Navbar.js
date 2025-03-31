@@ -14,13 +14,15 @@ const Navbar = () => {
 
   return (
     <div className="navbar">
-      <NavLink to={`${basePath}/home`} className="nav-button">
+      <NavLink to={`/cs378-final/`} className="nav-button">
         <FaHome />
       </NavLink>
       <NavLink to={`${basePath}/calendar`} className="nav-button">
         <FaCalendarAlt />
       </NavLink>
+      <NavLink to={`${basePath}/home`} className="nav-button">
       <div className="trip-name">{tripName}</div>
+      </NavLink>
       <NavLink to={`${basePath}/ideas`} className="nav-button">
         <FaLightbulb />
       </NavLink>

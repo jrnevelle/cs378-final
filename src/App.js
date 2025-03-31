@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, useLocation, useParams } from "react-router-dom";
 import Home from "./pages/Home"
+import PastTrips from "./pages/PastTrips"
 import TripHome from "./pages/TripHome"
 import Profile from "./pages/Profile"
 import Navbar from "./components/Navbar";
@@ -26,6 +27,7 @@ function Layout() {
     <>
       <Routes>
         <Route path="cs378-final/" element={<Home/>}/>
+        <Route path="past-trips" element={<PastTrips/>}/>
         <Route path="/trip/:id/home" element={<TripHome/>}/>
         <Route path="/trip/:id/calendar" element={<Calendar />} />
         <Route path="/trip/:id/settings" element={<Settings />} />
