@@ -1,0 +1,71 @@
+.idea-details {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fdfdfd;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .back-button {
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 15px;
+  }
+  
+  .back-button:hover {
+    text-decoration: underline;
+  }
+  
+  .idea-details h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .idea-cover {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+  
+  .idea-details p {
+    font-size: 16px;
+    color: #444;
+    margin-bottom: 10px;
+  }
+  
+  .vote-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+  }
+  
+  .vote-buttons button {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+  }
+  
+  .vote-buttons button:hover {
+    background: #f1f1f1;
+  }
+  
+  .vote-buttons button.selected {
+    background: #4CAF50;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .vote-buttons button.selected:nth-child(2) {
+    background: #E74C3C;
+  }

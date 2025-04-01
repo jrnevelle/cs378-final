@@ -84,7 +84,7 @@ function Ideas() {
               )}
               <div className="idea-content">
                 <h3>{idea.name}</h3>
-                <p className="idea-date">{idea.date?.toString().slice(0, 15)} {idea.time}</p>
+                <p className="idea-date">{idea.date && idea.date.toDate().toDateString()}</p>
                 <p>{idea.location.latitude}, {idea.location.longitude}</p>
                 <p>{idea.description}</p>
                 <p>Acceptance: {idea.acceptancePercentage}%</p>
@@ -93,6 +93,9 @@ function Ideas() {
                     <span key={index} className={`tag color-${index % 5}`}>{tag}</span>
                   ))}
                 </div>
+                <button className="details-button" onClick={() => navigate(`/trip/${id}/ideas/${idea.id}`)}>
+                  Details & Vote
+                </button>
               </div>
             </div>
           ))

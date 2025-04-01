@@ -60,14 +60,14 @@ function Calendar() {
           filteredIdeas.map((idea, i) => (
             <div className="idea-card" key={i}>
               <div>
-                <h2>{idea.date?.toString().slice(0, 15)}</h2>
+                <h2>{idea.date && idea.date.toDate().toDateString()}</h2>
               </div>
               {idea.imagePreview && (
                 <img src={idea.imagePreview} alt="Idea" className="idea-cover" />
               )}
               <div className="idea-content">
                 <h3>{idea.name}</h3>
-                <p className="idea-date">{idea.date?.toString().slice(0, 15)} {idea.time}</p>
+                <p className="idea-date">{idea.date && idea.date.toDate().toDateString()}</p>
                 <p>{idea.location.latitude}, {idea.location.longitude}</p>
                 <p>{idea.description}</p>
                 <p>Acceptance: {idea.acceptancePercentage}%</p>

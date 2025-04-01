@@ -19,6 +19,7 @@ import LoginPage from './pages/LoginPage';
 import { IdeaProvider } from './data/IdeaContext';
 import './App.css';
 import { Navigate } from 'react-router-dom';
+import IdeaDetails from './pages/IdeaDetails';
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function Layout() {
         <Route path="/trip/:id/profile" element={<Profile />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/trip/:id/ideas/new" element={<NewIdea />} />
+        <Route path="/trip/:tripId/ideas/:ideaId" element={<IdeaDetails/>} />
       </Routes>
       {tripPage && <Navbar />}
     </>

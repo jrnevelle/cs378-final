@@ -50,4 +50,16 @@ async function getIdeas(id) {
     return ideas;
 }
 
+export async function getIdeaById(tripId, ideaId) {
+    console.log(ideaId);
+    const docRef = doc(db, "trips", tripId, "ideas", ideaId);
+    const docSnap = await getDoc(docRef);
+    return docSnap.exists() ? { id: docSnap.id, ...docSnap.data() } : null;
+}
+  
+export async function updateIdeaVotes(tripId, ideaId, votes) {
+    const docRef = doc(db, "trips", tripId, "ideas", ideaId);
+    await updateDoc(docRef, { votes });
+}
+
 export { getTripInfo, updateTrip, addIdea, getIdeas, getTrips, getUserId };
