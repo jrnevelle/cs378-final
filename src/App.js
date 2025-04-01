@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import Home from './pages/Home';
 import PastTrips from './pages/PastTrips';
+import PlanNewTrip from './pages/PlanNewTrip';
 import TripHome from './pages/TripHome';
 import Profile from './pages/Profile';
 import Navbar from './components/Navbar';
@@ -40,6 +41,7 @@ function Layout() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/cs378-final/" element={<Home />} />
         <Route path="/past-trips" element={<PastTrips />} />
+        <Route path="plan-new-trip" element={<PlanNewTrip />} />
         <Route path="/trip/:id/home" element={<TripHome />} />
         <Route path="/trip/:id/calendar" element={<Calendar />} />
         <Route path="/trip/:id/settings" element={<Settings />} />
