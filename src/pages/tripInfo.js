@@ -42,10 +42,10 @@ export async function getTrips() {
   const joinedTripIds = userSnap.data().joinedTrips || [];
   const trips = [];
 
-  for (const tripId of joinedTripIds) {
-    const tripDoc = await getDoc(doc(db, 'trips', tripId));
-    if (tripDoc.exists()) {
-      trips.push({ id: tripId, ...tripDoc.data() });
+  for (let tripId of joinedTripIds) {
+    const tripSnap = await getDoc(doc(db, 'trips', tripId));
+    if (tripSnap.exists()) {
+      trips.push({ id: tripId, ...tripSnap.data() });
     }
   }
 
