@@ -1,5 +1,6 @@
 {
   "name": "final-project",
+  "homepage": "https://jrnevelle.github.io/cs378-final",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

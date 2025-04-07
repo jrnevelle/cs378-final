@@ -39,7 +39,7 @@ function Layout() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/cs378-final" element={<Navigate to="/login" />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/home" element={<Home />} />
