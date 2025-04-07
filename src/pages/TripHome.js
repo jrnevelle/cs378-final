@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getTripInfo, getIdeas, getUserId, updateTrip } from "../data/tripInfo";
-import { GeoPoint, Timestamp } from "firebase/firestore";
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { getTripInfo, getIdeas, getUserId, updateTrip } from '../data/tripInfo';
 
 function TripHome() {
   const { id } = useParams();
   const [trip, setTrip] = useState(null);
   const [ideas, setIdeas] = useState(0);
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState('');
 
   useEffect(() => {
     const userId = getUserId();
@@ -16,14 +15,17 @@ function TripHome() {
       const tripData = await getTripInfo(id);
       if (tripData) {
         setTrip(tripData);
-        setImageUrl(tripData.imageUrl || "");
+        setImageUrl(tripData.imageUrl || '');
       }
     }
 
     async function fetchIdeas() {
       const ideasData = await getIdeas(id);
-      const filtered = ideasData.filter(idea => !idea.archived && 
-        !idea.votes?.yes?.includes(userId) && !idea.votes?.no?.includes(userId)
+      const filtered = ideasData.filter(
+        (idea) =>
+          !idea.archived &&
+          !idea.votes?.yes?.includes(userId) &&
+          !idea.votes?.no?.includes(userId)
       );
       setIdeas(filtered.length);
     }
@@ -36,8 +38,15 @@ function TripHome() {
     if (!imageUrl) return;
 
     await updateTrip(id, { imageUrl });
-    setTrip(prev => ({ ...prev, imageUrl }));
+    setTrip((prev) => ({ ...prev, imageUrl }));
   }
+
+  const formatDate = (date) => {
+    if (!date) return 'N/A';
+    if (typeof date === 'string') return new Date(date).toLocaleString();
+    if (date.toDate) return date.toDate().toLocaleString();
+    return 'Invalid Date';
+  };
 
   return (
     <div>
@@ -46,10 +55,19 @@ function TripHome() {
       {trip ? (
         <div>
           <h4>Trip Details</h4>
-          <p><strong>Start Date:</strong> {trip.start.toDate().toLocaleString()}</p>
-          <p><strong>End Date:</strong> {trip.end.toDate().toLocaleString()}</p>
-          <p><strong>Members:</strong> {trip.members?.join(", ")}</p>
-          <p><strong>Ideas to Vote On:</strong> {ideas}</p>
+          <p>
+            <strong>Start Date:</strong> {formatDate(trip.startDate)}
+          </p>
+          <p>
+            <strong>End Date:</strong> {formatDate(trip.endDate)}
+          </p>
+          <p>
+            <strong>Destination:</strong> {trip.destination || 'N/A'}
+          </p>
+          <p>
+            <strong>Ideas to Vote On:</strong> {ideas}
+          </p>
+
           {trip.imageUrl ? (
             <div>
               <h4>Trip Image</h4>

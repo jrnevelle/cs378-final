@@ -1,19 +1,64 @@
-.trip-carousel {
-    margin-top: 60px;
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* Home.css */
+
+.Home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 20px;
+  min-height: 100vh;
+  background-color: #fff;
 }
 
 .profile {
-    position: absolute;
-    width: 40px;
-    top: 20px;
-    right: 20px;
-    
+  align-self: flex-end;
+  margin-bottom: 20px;
+  margin-right: 20px;
 }
 
-.profile img {
-    width: 100%;
+.trip-carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+}
+
+.carousel {
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.button {
+  padding: 10px 18px;
+  background-color: #2e89ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.button:hover {
+  background-color: #1c6dd0;
+}
+
+.no-trips {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.welcome-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 60px;
 }

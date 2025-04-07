@@ -1,8 +1,10 @@
+// ✅ src/App.js
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   useLocation,
+  Navigate,
 } from 'react-router-dom';
 import Home from './pages/Home';
 import PastTrips from './pages/PastTrips';
@@ -16,11 +18,11 @@ import Ideas from './pages/Ideas';
 import NewIdea from './pages/NewIdea';
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
+import CreateTripPage from './pages/CreateTripPage';
+import WelcomePage from './pages/WelcomePage';
 import { IdeaProvider } from './data/IdeaContext';
 import './App.css';
-import { Navigate } from 'react-router-dom';
 import IdeaDetails from './pages/IdeaDetails';
-
 function App() {
   return (
     <Router>
@@ -40,7 +42,9 @@ function Layout() {
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/cs378-final/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/welcome" element={<WelcomePage />} />
+        <Route path="/plan-new-trip" element={<CreateTripPage />} />
         <Route path="/past-trips" element={<PastTrips />} />
         <Route path="plan-new-trip" element={<PlanNewTrip />} />
         <Route path="/trip/:id/home" element={<TripHome />} />

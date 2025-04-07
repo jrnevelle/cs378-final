@@ -1,10 +1,9 @@
 // inspired from https://github.com/CodeCompleteYT/react-image-carousel/tree/main
 
-import React, { useState, useEffect } from "react";
-import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
-
-import "./CardCarousel.css";
+import React, { useState, useEffect } from 'react';
+import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
+import './CardCarousel.css';
 
 export const Carousel = ({ data }) => {
   const [slide, setSlide] = useState(0);
@@ -23,23 +22,29 @@ export const Carousel = ({ data }) => {
     setSlide(slide === 0 ? data.length - 1 : slide - 1);
   };
 
+  const defaultImage =
+    'https://images.unsplash.com/photo-1507525428034-b723cf961d3e';
+
   return (
     <div className="carousel">
       <BsArrowLeftCircleFill onClick={prevSlide} className="arrow arrow-left" />
       {trips.map((item, index) => {
+        const imageUrl = item.imageUrl || item.coverPhoto || defaultImage;
+        const title = item.tripName || item.name || 'Untitled Trip';
+
         return (
           <div
             key={index}
-            className={slide === index ? "slide" : "slide slide-hidden"}
+            className={slide === index ? 'slide' : 'slide slide-hidden'}
           >
-          <img src={item.imageUrl} alt={item.name || "Trip Image"} />
-          <div className="title">{item.name}</div>
-          <button 
-            className="view-trip"
-            onClick={()=>navigate(`/trip/${item.id}/home`)}
-          >
-            View Trip
-          </button>
+            <img src={imageUrl} alt="Trip Image" />
+            <div className="title">{title}</div>
+            <button
+              className="view-trip"
+              onClick={() => navigate(`/trip/${item.id}/home`)}
+            >
+              View Trip
+            </button>
           </div>
         );
       })}
@@ -48,18 +53,15 @@ export const Carousel = ({ data }) => {
         className="arrow arrow-right"
       />
       <span className="indicators">
-        {trips.map((item, index) => {
-          return (
-            <button
-              key={index}
-              className={
-                slide === index ? "indicator" : "indicator indicator-inactive"
-              }
-              
-              onClick={() => setSlide(index)}
-            ></button>
-          );
-        })}
+        {trips.map((_, index) => (
+          <button
+            key={index}
+            className={
+              slide === index ? 'indicator' : 'indicator indicator-inactive'
+            }
+            onClick={() => setSlide(index)}
+          />
+        ))}
       </span>
     </div>
   );

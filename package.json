@@ -1,7 +1,6 @@
 {
   "name": "final-project",
   "version": "0.1.0",
-  "homepage": "https://jrnevelle.github.io/cs378-final",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.0",

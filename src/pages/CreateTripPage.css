@@ -1,0 +1,22 @@
+.create-trip-container {
+  max-width: 500px;
+  margin: 4rem auto;
+  text-align: center;
+}
+
+.create-trip-container input {
+  padding: 12px;
+  width: 80%;
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+.create-trip-container button {
+  background-color: #2f80ed;
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

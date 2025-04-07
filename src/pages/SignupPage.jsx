@@ -29,28 +29,17 @@ const SignupPage = () => {
         formData.email,
         formData.password
       );
-     const defaultTripId = 'trip123'; // Change to match your Firestore trip ID
 
-     // 1. Add user to 'users' collection
-await setDoc(doc(db, 'users', user.uid), {
-  name: formData.name,
-  email: formData.email,
-  profilePicture: null,
-  joinedTrips: [], // ✅ Empty by default
-  savedIdeas: [],
-  notificationPrefs: { ideas: true, comments: true },
-});
+      await setDoc(doc(db, 'users', user.uid), {
+        name: formData.name,
+        email: formData.email,
+        profilePicture: null,
+        joinedTrips: [],
+        savedIdeas: [],
+        notificationPrefs: { ideas: true, comments: true },
+      });
 
-
-     // 2. Add user to default trip's members
-     await setDoc(doc(db, 'trips', defaultTripId, 'members', user.uid), {
-       name: formData.name,
-       email: formData.email,
-       role: 'member',
-     });
-
-
-      navigate('/cs378-final/');
+      navigate('/welcome');
     } catch (err) {
       console.error(err);
       setError(err.message);

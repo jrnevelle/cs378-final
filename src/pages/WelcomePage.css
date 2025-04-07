@@ -1,0 +1,15 @@
+.welcome-container {
+  text-align: center;
+  padding: 4rem;
+}
+
+.button {
+  background-color: #2f80ed;
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 20px;
+}

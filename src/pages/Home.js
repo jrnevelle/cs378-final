@@ -1,3 +1,4 @@
+// Home.jsx
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Home.css';
@@ -7,6 +8,7 @@ import { auth } from '../data/firebaseConfig';
 
 function Home() {
   const [trips, setTrips] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,6 +16,7 @@ function Home() {
       if (user) {
         const tripsData = await getTrips();
         setTrips(tripsData);
+        setLoading(false);
       } else {
         navigate('/login');
       }
@@ -26,6 +29,16 @@ function Home() {
     navigate(`/trip/${id}/home`);
   };
 
+  if (loading) {
+    return (
+      <div className="Home">
+        <p>Loading your trips...</p>
+      </div>
+    );
+  }
+
+  const isNewUser = trips.length === 0;
+
   return (
     <div className="Home">
       <Link to="/profile" className="profile">
@@ -35,29 +48,28 @@ function Home() {
         />
       </Link>
 
-      <div className="trip-carousel">
-        {trips.length === 0 ? (
-          <div className="no-trips">
-            <h3>You haven’t joined any trips yet.</h3>
+      {isNewUser ? (
+        <div className="welcome-section">
+          <h2>Welcome to Vote Voyage! 🎉</h2>
+          <p>You haven’t joined any trips yet.</p>
+          <Link to="/plan-new-trip" className="button">
+            Plan Your First Trip
+          </Link>
+        </div>
+      ) : (
+        <div className="trip-carousel">
+          <h3>Current Trips</h3>
+          <Carousel data={trips} onTripClick={handleTripClick} />
+          <div className="action-buttons">
             <Link to="/plan-new-trip" className="button">
               Plan New Trip
             </Link>
+            <Link to="/past-trips" className="button">
+              View Past Trips
+            </Link>
           </div>
-        ) : (
-          <>
-            <h3>Current Trips</h3>
-            <Carousel data={trips} onTripClick={handleTripClick} />
-            <div className="action-buttons">
-              <Link to="/plan-new-trip" className="button">
-                Plan New Trip
-              </Link>
-              <Link to="/past-trips" className="button">
-                View Past Trips
-              </Link>
-            </div>
-          </>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

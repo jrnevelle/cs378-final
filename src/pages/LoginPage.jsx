@@ -19,7 +19,7 @@ const LoginPage = () => {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, formData.email, formData.password);
-      navigate('/cs378-final/');
+      navigate('/home');
     } catch (err) {
       console.error(err);
       setError(err.message);
