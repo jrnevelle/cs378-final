@@ -11,6 +11,7 @@ function Profile() {
   const navigate = useNavigate();
   const user = auth.currentUser;
   const goBack = () => navigate(-1);
+  const [uid, setUid] = useState("");
 
   const [profile, setProfile] = useState({
     name: '',
@@ -32,6 +33,7 @@ function Profile() {
       }
     };
     fetchProfile();
+    console.log(user.uid);
   }, [user]);
 
   const handleChange = (e) => {
@@ -54,7 +56,8 @@ function Profile() {
       <h2>My Profile</h2>
 
       <div className="profile-icon">
-        <FaUserCircle size={100} />
+        <img src={`https://www.tapback.co/api/avatar/${user.uid}.webp`}>
+        </img>
       </div>
 
       <div className="profile-form">

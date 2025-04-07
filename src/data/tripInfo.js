@@ -1,4 +1,4 @@
-import { db } from "./firebaseConfig";
+import { db, auth } from "./firebaseConfig";
 import { getFirestore, doc, getDoc, addDoc, updateDoc, collection, getDocs } from "firebase/firestore";
 
 async function getTripInfo(tripId) {
@@ -35,7 +35,9 @@ async function getTrips() {
 }
 
 function getUserId() {
-    return "0";
+    const user = auth.currentUser;
+    const uid = user.uid;
+    return uid;
 }
 
 async function getIdeas(id) {
