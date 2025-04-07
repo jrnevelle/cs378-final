@@ -1,17 +1,51 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getTripInfo, getIdeas, getUserId, updateTrip } from '../data/tripInfo';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+
+const markerIcon = new L.Icon({
+  iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+});
 
 function TripHome() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [trip, setTrip] = useState(null);
-  const [ideas, setIdeas] = useState(0);
+  const [ideas, setIdeas] = useState([]);
+  const [unvotedCount, setUnvotedCount] = useState(0);
   const [imageUrl, setImageUrl] = useState('');
+
+  const getMapCenter = () => {
+   // 1. If the trip itself has a location field, use that
+   if (trip?.location?.latitude && trip?.location?.longitude) {
+     return [trip.location.latitude, trip.location.longitude];
+   }
+ 
+   // 2. Else, compute average from ideas
+   const locations = ideas
+     .filter(idea => idea.location?.latitude && idea.location?.longitude)
+     .map(idea => [idea.location.latitude, idea.location.longitude]);
+ 
+   if (locations.length > 0) {
+     const avgLat = locations.reduce((sum, [lat]) => sum + lat, 0) / locations.length;
+     const avgLng = locations.reduce((sum, [, lng]) => sum + lng, 0) / locations.length;
+     return [avgLat, avgLng];
+   }
+ 
+   // 3. Fallback to Spain if nothing else is available
+   return [40.4168, -3.7038];
+ };
+ 
+
 
   useEffect(() => {
     const userId = getUserId();
 
-    async function fetchTrip() {
+    async function fetchTripData() {
       const tripData = await getTripInfo(id);
       if (tripData) {
         setTrip(tripData);
@@ -19,7 +53,7 @@ function TripHome() {
       }
     }
 
-    async function fetchIdeas() {
+    async function fetchIdeasData() {
       const ideasData = await getIdeas(id);
       const filtered = ideasData.filter(
         (idea) =>
@@ -27,56 +61,62 @@ function TripHome() {
           !idea.votes?.yes?.includes(userId) &&
           !idea.votes?.no?.includes(userId)
       );
-      setIdeas(filtered.length);
+      setIdeas(ideasData);
+      setUnvotedCount(filtered.length);
     }
 
-    fetchTrip();
-    fetchIdeas();
+    fetchTripData();
+    fetchIdeasData();
   }, [id]);
 
-  async function handleImageUrlUpdate() {
+  const handleImageUrlUpdate = async () => {
     if (!imageUrl) return;
-
     await updateTrip(id, { imageUrl });
     setTrip((prev) => ({ ...prev, imageUrl }));
-  }
+  };
 
   const formatDate = (date) => {
     if (!date) return 'N/A';
-    if (typeof date === 'string') return new Date(date).toLocaleString();
-    if (date.toDate) return date.toDate().toLocaleString();
+    if (typeof date === 'string') return new Date(date).toLocaleDateString();
+    if (date.toDate) return date.toDate().toLocaleDateString();
     return 'Invalid Date';
   };
 
   return (
-    <div>
-      <h3>Trip Home for Trip ID: {id}</h3>
+    <div className="trip-home">
+      {/* Banner */}
+      <div
+        style={{
+          backgroundColor: '#fcd34d',
+          padding: '10px 20px',
+          borderRadius: '10px',
+          margin: '10px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          cursor: 'pointer',
+        }}
+        onClick={() => navigate(`/trip/${id}/ideas`)}
+      >
+        <span>❗ {unvotedCount} New Ideas</span>
+        <span>➡</span>
+      </div>
 
+      {/* Trip Summary */}
       {trip ? (
-        <div>
-          <h4>Trip Details</h4>
+        <div style={{ padding: '0 20px' }}>
+          <h2>{trip.tripName}</h2>
           <p>
-            <strong>Start Date:</strong> {formatDate(trip.startDate)}
+            <strong>{formatDate(trip.startDate)} - {formatDate(trip.endDate)}</strong>
           </p>
-          <p>
-            <strong>End Date:</strong> {formatDate(trip.endDate)}
-          </p>
-          <p>
-            <strong>Destination:</strong> {trip.destination || 'N/A'}
-          </p>
-          <p>
-            <strong>Ideas to Vote On:</strong> {ideas}
-          </p>
+          <p>{trip.members?.length || 1} travellers</p>
 
+          {/* Image */}
           {trip.imageUrl ? (
-            <div>
-              <h4>Trip Image</h4>
-              <img src={trip.imageUrl} alt="Trip" width="200" />
-            </div>
+            <img src={trip.imageUrl} alt="Trip" width="100%" style={{ borderRadius: '12px' }} />
           ) : (
             <p>No image uploaded.</p>
           )}
-
           <input
             type="text"
             placeholder="Enter Image URL"
@@ -84,6 +124,35 @@ function TripHome() {
             onChange={(e) => setImageUrl(e.target.value)}
           />
           <button onClick={handleImageUrlUpdate}>Save Image URL</button>
+
+          {/* Map Section */}
+          <h3 style={{ marginTop: '20px' }}>Idea Map</h3>
+          <div style={{ height: '300px', borderRadius: '12px', overflow: 'hidden' }}>
+          <MapContainer
+  center={getMapCenter()}
+  zoom={5}
+  style={{ height: '100%', width: '100%' }}
+>
+              <TileLayer
+                attribution='&copy; <a href="https://osm.org">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              {ideas.map((idea) =>
+                idea.location?.latitude && idea.location?.longitude ? (
+                  <Marker
+                    key={idea.id}
+                    icon={markerIcon}
+                    position={[idea.location.latitude, idea.location.longitude]}
+                    eventHandlers={{
+                      click: () => navigate(`/trip/${id}/ideas/${idea.id}`),
+                    }}
+                  >
+                    <Popup>{idea.name}</Popup>
+                  </Marker>
+                ) : null
+              )}
+            </MapContainer>
+          </div>
         </div>
       ) : (
         <p>Loading trip details...</p>
