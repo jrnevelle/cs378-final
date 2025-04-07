@@ -83,7 +83,8 @@ function TripHome() {
   };
 
   return (
-    <div className="trip-home">
+    <div className="trip-home"
+      style={{paddingBottom: '80px'}}>
       {/* Banner */}
       <div
         style={{

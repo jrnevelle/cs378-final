@@ -12,8 +12,13 @@
 
 .profile {
   align-self: flex-end;
-  margin-bottom: 20px;
-  margin-right: 20px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  width: 15%;
+}
+
+.profile img {
+  width: 100%;
 }
 
 .trip-carousel {
