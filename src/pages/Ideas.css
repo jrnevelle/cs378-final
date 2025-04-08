@@ -3,6 +3,23 @@
   font-family: 'Geologica', sans-serif;
 }
 
+.fixed-content {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+}
+
+.scrollable-content {
+  margin-top: 285px; /* Adjust to match height of fixed content */
+  overflow-y: auto;
+  padding-bottom: 30px;
+}
+
 .ideas-header {
   display: flex;
   justify-content: center; /* keeps title centered */
@@ -187,7 +204,7 @@
 }
 
 .custom-dropdown li:hover {
-  background-color: #f0f0f0;
+  background-color: #a0a0a0;
 }
 
 .selected {

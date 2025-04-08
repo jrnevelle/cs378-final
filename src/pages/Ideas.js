@@ -119,6 +119,7 @@ useEffect(() => {
 
   return (
     <div className="ideas-page">
+      <div className='fixed-content'>
       <TripBanner />
       <div className="ideas-header">
         <h2 className="ideas-title">Ideas</h2>
@@ -173,6 +174,8 @@ useEffect(() => {
 
 
       </div>
+      </div>
+      <div className="scrollable-content">
 
       <div className="idea-list">
         {filteredIdeas.length === 0 ? (
@@ -182,6 +185,7 @@ useEffect(() => {
             <IdeaCard idea={idea} key={i}/>
           ))
         )}
+      </div>
       </div>
     </div>
   );
