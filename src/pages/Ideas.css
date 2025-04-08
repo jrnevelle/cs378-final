@@ -1,12 +1,44 @@
 .ideas-page {
   padding-bottom: 80px;
+  font-family: 'Geologica', sans-serif;
+}
+
+.ideas-header {
+  display: flex;
+  justify-content: center; /* keeps title centered */
+  align-items: center;
+  position: relative;
+  margin-bottom: 10px;
 }
 
 .ideas-title {
-   font-size: 24px;
-   font-weight: bold;
-   margin-bottom: 20px;
- }
+  font-size: 35px;
+  font-weight: normal;
+  letter-spacing: 1px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.add-idea-button {
+  position: absolute;
+  right: 20px;
+  background-color: #76B2FF;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* A more pronounced shadow */
+}
+
+.add-idea-button:hover {
+  background-color: #6b9fe4;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Slightly darker shadow on hover */
+}
  
  .idea-list {
    display: flex;
@@ -55,3 +87,110 @@
    gap: 8px;
  }
  
+
+ .tabs {
+  display: flex;
+  justify-content: center; /* Center tabs horizontally */
+  gap: 0; /* Remove spacing between tabs */
+  margin-bottom: 16px;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  padding: 10px 0;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+  flex: 1; /* Make each button take equal space */
+  text-align: center;
+  max-width: 120px; /* Optional: control how wide each tab gets */
+  letter-spacing: 0.4px;
+}
+
+.tab-button:hover {
+  color: #000;
+}
+
+.tab-button.active {
+  border-bottom: 2px solid #000;
+  font-weight: 700;
+  color: #000;
+}
+
+.tabs-wrapper {
+  margin: 0px 15px;
+}
+
+.filter-button {
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  padding: 8px 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.filter-button:hover {
+  background-color: #f0f0f0;
+  border-color: #888;
+}
+
+
+
+.search-bar {
+  margin: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-bar input {
+  padding: 5px 10px;
+  margin-right: 10px;
+  margin-left: 5px;
+  width: 100%;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  background-color: #9fa7af2a;
+}
+
+.tag-filter button {
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  border: 1px solid #9FA7AF;
+  background-color: white;
+}
+
+.custom-dropdown {
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  list-style: none;
+  padding: 4px 0;
+  width: 100px;
+  z-index: 1000;
+  font-size: 12px;
+}
+
+.custom-dropdown li {
+  padding: 2px 12px;
+  cursor: pointer;
+}
+
+.custom-dropdown li:hover {
+  background-color: #f0f0f0;
+}
+
+.selected {
+  background-color: #76B2FF; /* Highlight color */
+  color: white;
+}
