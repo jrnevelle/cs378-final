@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { FaHome, FaCalendarAlt, FaLightbulb, FaCog } from 'react-icons/fa';
 import './Navbar.css';
+import { getTripInfo } from '../data/tripInfo';
 
 const Navbar = () => {
   const location = useLocation();
   const segments = location.pathname.split('/');
   const tripId = segments[2];
   const basePath = `/trip/${tripId}`;
+  const [name, setName] = useState("Trip");
+
+  useEffect(() => {
+    const fetchTripName = async () => {
+      const tripInfo = await getTripInfo(tripId);
+      console.log(tripInfo);
+      setName(tripInfo?.tripName || "Trip");
+    };
+    fetchTripName();
+  }, [tripId]);
 
   return (
     <div className="navbar">
@@ -18,7 +29,7 @@ const Navbar = () => {
         <FaCalendarAlt />
       </NavLink>
       <NavLink to={`${basePath}/home`} className="nav-button">
-        Trip
+        {name}
       </NavLink>
       <NavLink to={`${basePath}/ideas`} className="nav-button">
         <FaLightbulb />
