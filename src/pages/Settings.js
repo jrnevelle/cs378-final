@@ -117,13 +117,37 @@ function Settings() {
     ]);
   };
 
-  const saveChanges = async () => {
-    await updateDoc(doc(db, 'trips', tripId), {
-      tripName,
-      votingThreshold: parseFloat(threshold) / 100,
-    });
-    alert('Trip settings updated!');
-  };
+const saveChanges = async () => {
+  const newThreshold = parseFloat(threshold) / 100;
+
+  await updateDoc(doc(db, 'trips', tripId), {
+    tripName,
+    votingThreshold: newThreshold,
+  });
+
+  // Fetch all ideas for this trip
+  const ideasRef = collection(db, 'trips', tripId, 'ideas');
+  const snapshot = await getDocs(ideasRef);
+
+  snapshot.forEach(async (docSnap) => {
+    const idea = docSnap.data();
+    const yes = idea.votes?.yes?.length || 0;
+    const no = idea.votes?.no?.length || 0;
+    const total = yes + no;
+    const percentage = total > 0 ? yes / total : 0;
+
+    // Archive if below new threshold
+    const shouldArchive = percentage < newThreshold;
+    if (idea.archived !== shouldArchive) {
+      await updateDoc(doc(db, 'trips', tripId, 'ideas', docSnap.id), {
+        archived: shouldArchive,
+      });
+    }
+  });
+
+  alert('Trip settings updated and ideas re-evaluated!');
+};
+
 
   return (
     <div className="settings-wrapper">

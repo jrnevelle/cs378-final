@@ -1,67 +1,77 @@
-import { db, auth } from "./firebaseConfig";
-import { getFirestore, doc, getDoc, addDoc, updateDoc, collection, getDocs } from "firebase/firestore";
+// /data/tripInfo.js
+import { auth, db } from './firebaseConfig';
+import {
+  doc,
+  getDoc,
+  addDoc,
+  updateDoc,
+  collection,
+  getDocs,
+} from 'firebase/firestore';
 
-async function getTripInfo(tripId) {
-    const tripRef = doc(db, "trips", tripId);
-    const tripSnap = await getDoc(tripRef);
-
-    if (tripSnap.exists()) {
-        return tripSnap.data();
-    } else {
-        console.log("No such trip found!");
-        return null;
-    }
+// Get current user's UID
+export function getUserId() {
+  const user = auth.currentUser;
+  return user?.uid;
 }
 
-async function updateTrip(tripId, updates) {
-    const tripRef = doc(db, "trips", tripId);
-    await updateDoc(tripRef, updates);
+// Get trip info by tripId
+export async function getTripInfo(tripId) {
+  const tripRef = doc(db, 'trips', tripId);
+  const tripSnap = await getDoc(tripRef);
+  return tripSnap.exists() ? tripSnap.data() : null;
 }
 
-async function addIdea(tripId, ideaData) {
-    const ideasRef = collection(db, `trips/${tripId}/ideas`);
-    await addDoc(ideasRef, ideaData);
+// Update a trip's fields
+export async function updateTrip(tripId, updates) {
+  const tripRef = doc(db, 'trips', tripId);
+  await updateDoc(tripRef, updates);
 }
 
-async function getTrips() {
-    const tripsCollection = collection(db, "trips");
-    const tripDocs = await getDocs(tripsCollection);
-    const trips = tripDocs.docs.map((doc, index) => ({
-        id: doc.id,
-        index: index,
-        ...doc.data()
-    }));
-    return trips;
+// Add a new idea to a trip
+export async function addIdea(tripId, ideaData) {
+  const ideasRef = collection(db, `trips/${tripId}/ideas`);
+  await addDoc(ideasRef, ideaData);
 }
 
-function getUserId() {
-    const user = auth.currentUser;
-    const uid = user.uid;
-    return uid;
+// Get all ideas for a trip
+export async function getIdeas(tripId) {
+  const ideasCollection = collection(db, `trips/${tripId}/ideas`);
+  const ideaDocs = await getDocs(ideasCollection);
+  return ideaDocs.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 }
 
-async function getIdeas(id) {
-    const ideasCollection = collection(db, `trips/${id}/ideas`);
-    const ideaDocs = await getDocs(ideasCollection);
-
-    const ideas = ideaDocs.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data(),
-    }));
-
-    return ideas;
-}
-
+// Get a single idea by tripId and ideaId
 export async function getIdeaById(tripId, ideaId) {
-    console.log(ideaId);
-    const docRef = doc(db, "trips", tripId, "ideas", ideaId);
-    const docSnap = await getDoc(docRef);
-    return docSnap.exists() ? { id: docSnap.id, ...docSnap.data() } : null;
-}
-  
-export async function updateIdeaVotes(tripId, ideaId, votes) {
-    const docRef = doc(db, "trips", tripId, "ideas", ideaId);
-    await updateDoc(docRef, { votes });
+  const docRef = doc(db, 'trips', tripId, 'ideas', ideaId);
+  const docSnap = await getDoc(docRef);
+  return docSnap.exists() ? { id: docSnap.id, ...docSnap.data() } : null;
 }
 
-export { getTripInfo, updateTrip, addIdea, getIdeas, getTrips, getUserId };
+// Update votes for an idea
+export async function updateIdeaVotes(tripId, ideaId, votes) {
+  const docRef = doc(db, 'trips', tripId, 'ideas', ideaId);
+  await updateDoc(docRef, { votes });
+}
+
+// Get all trips the current user is part of (from joinedTrips array)
+export async function getTrips() {
+  const user = auth.currentUser;
+  if (!user) return [];
+
+  const userRef = doc(db, 'users', user.uid);
+  const userSnap = await getDoc(userRef);
+  if (!userSnap.exists()) return [];
+
+  const joinedTripIds = userSnap.data().joinedTrips || [];
+  const trips = [];
+
+  for (const tripId of joinedTripIds) {
+    const tripSnap = await getDoc(doc(db, 'trips', tripId));
+    if (tripSnap.exists()) {
+      trips.push({ id: tripId, ...tripSnap.data() });
+    }
+  }
+
+  return trips;
+}
