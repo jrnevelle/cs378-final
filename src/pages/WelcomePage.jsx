@@ -61,11 +61,10 @@ const WelcomePage = () => {
     <div className="welcome-container">
       <h2>Welcome to Vote Voyage! 🎉</h2>
       <p>You haven’t joined any trips yet.</p>
-
       <Link to="/plan-new-trip" className="button">
         Plan a New Trip
       </Link>
-
+      
       <div className="join-section">
         <p>Or join a trip with a code:</p>
         <input
