@@ -25,8 +25,15 @@
  }
  
  .trip-name {
-   font-weight: bold;
-   font-size: 16px;
-   color: #333;
- }
+  font-weight: medium;
+  font-size: 20px;
+  color: #333;
+  max-width: 90px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: center;
+  display: inline-block;
+}
+
  

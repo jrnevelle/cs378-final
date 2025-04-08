@@ -28,7 +28,7 @@ const Navbar = () => {
       <NavLink to={`${basePath}/calendar`} className="nav-button">
         <FaCalendarAlt />
       </NavLink>
-      <NavLink to={`${basePath}/home`} className="nav-button">
+      <NavLink to={`${basePath}/home`} className="nav-button trip-name">
         {name}
       </NavLink>
       <NavLink to={`${basePath}/ideas`} className="nav-button">
