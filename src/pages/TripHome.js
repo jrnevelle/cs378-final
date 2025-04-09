@@ -88,7 +88,7 @@ function TripHome() {
       {/* Banner */}
       <div
         style={{
-          backgroundColor: '#fcd34d',
+          backgroundColor: '#76B2FF',
           padding: '10px 20px',
           borderRadius: '10px',
           margin: '10px',
