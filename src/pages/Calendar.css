@@ -1,7 +1,9 @@
 html, body, #root {
     height: 100%;
+    font-family: 'Geologica', sans-serif;
   }
   
   .calendar-container {
     height: 100vh; /* or at least something like 600px */
+    font-family: 'Geologica', sans-serif;
   }
