@@ -75,3 +75,10 @@ export async function getTrips() {
 
   return trips;
 }
+
+// Get a specific member document by tripId and userId
+export async function getTripMemberById(tripId, userId) {
+    const memberRef = doc(db, 'trips', tripId, 'members', userId);
+    const memberSnap = await getDoc(memberRef);
+    return memberSnap.exists() ? { id: memberSnap.id, ...memberSnap.data() } : null;
+  }

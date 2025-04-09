@@ -33,8 +33,8 @@ useEffect(() => {
     const dropdown = document.querySelector('.custom-dropdown');
 
     if (dropdown) {
-      dropdown.style.top = `${buttonRect.bottom + window.scrollY}px`; // Position below button
-      dropdown.style.left = `${buttonRect.left + window.scrollX - 90}px`;  // Align with button
+      dropdown.style.top = `${buttonRect.bottom + window.scrollY - 10}px`; // Position below button
+      dropdown.style.left = `${buttonRect.left + window.scrollX - 80}px`;  // Align with button
     }
   }
 }, [showDropdown]);
@@ -120,7 +120,7 @@ useEffect(() => {
   return (
     <div className="ideas-page">
       <div className='fixed-content'>
-      <TripBanner />
+      <TripBanner id={id}/>
       <div className="ideas-header">
         <h2 className="ideas-title">Ideas</h2>
         <button className="add-idea-button" onClick={goToNewIdea}>＋</button>

@@ -97,13 +97,6 @@
    margin-bottom: 6px;
  }
  
- .idea-tags {
-   margin-top: 10px;
-   display: flex;
-   flex-wrap: wrap;
-   gap: 8px;
- }
- 
 
  .tabs {
   display: flex;

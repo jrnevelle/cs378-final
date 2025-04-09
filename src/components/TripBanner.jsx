@@ -3,9 +3,9 @@ import './TripBanner.css';
 import { getTripInfo } from '../data/tripInfo';
 import { useParams, useNavigate } from 'react-router-dom';
 
-function TripBanner() {
+function TripBanner({id: id}) {
   const [tripData, setTripData] = useState(null);
-  const {id} = useParams();
+//   const {id} = useParams();
 
   useEffect(() => {
     async function fetchData() {

@@ -2,7 +2,7 @@
 import React from 'react';
 import './IdeaCard.css';
 import { useParams, useNavigate } from 'react-router-dom';
-import { FaCalendarAlt } from 'react-icons/fa';
+import { FiCalendar } from 'react-icons/fi';
 
 const IdeaCard = ({ idea }) => {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const IdeaCard = ({ idea }) => {
       <div className="idea-content">
         <h3>{idea.name}</h3>
         <p className="idea-date">
-          <FaCalendarAlt style={{ width: '20px', marginRight: '2px', color: '#000' }} /> {/* Use the icon */}
+          <FiCalendar style={{ width: '20px', marginRight: '2px', color: '#000' }} /> {/* Use the icon */}
           {idea.date && idea.date.toDate().toDateString()}
         </p>
         <p className="idea-tags">{idea.tags?.join(' · ')}</p>

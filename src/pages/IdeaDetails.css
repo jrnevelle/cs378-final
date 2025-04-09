@@ -1,62 +1,182 @@
 .idea-details {
     max-width: 600px;
     margin: 0 auto;
-    padding: 20px;
-    background: #fdfdfd;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    font-family: 'Geologica', sans-serif;
+  }
+
+  .trip-banner-wrapper {
+    position: relative;
   }
   
   .back-button {
-    background: none;
+    position: absolute;
+    top: 30px;
+    left: 15px;
     border: none;
-    color: #333;
-    font-size: 16px;
+    border-radius: 50%;
+    padding: 10px;
     cursor: pointer;
-    margin-bottom: 15px;
+    z-index: 10;
   }
   
-  .back-button:hover {
-    text-decoration: underline;
+  .back-button svg {
+    color: white;
+    width: 40px;
+    height: 40px;
+  }
+
+  .title-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* horizontally center */
+    margin-top: -10px;
+    text-align: center;
+  }
+
+  .idea-title {
+    font-size: 28px;
+    font-weight: normal;
+  }
+
+  .idea-tags-details {
+    color: #999;
+    margin-top: -15px;
+    font-size: 15px;
   }
   
-  .idea-details h2 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 15px;
-  }
-  
-  .idea-cover {
-    width: 100%;
+  .idea-cover-details {
+    width: 86%;
     height: 160px;
+    overflow: hidden;
+    flex-shrink: 0;
+    border-radius: 12px;
+    margin: 0px 7%;
+    display: flex;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  }
+
+  .idea-image {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 15px;
+  }
+
+  .details-description-wrapper {
+    margin: 0px 7%;
+  }
+
+  .details-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .posted-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-content: left;
+  }
+
+  .posted-img {
+    height: 22px;
+    width: 22px;
+    margin-right: 8px;
+  }
+
+  .posted-name {
+    color: #999;
+    font-size: 14px;
+  }
+
+  .date-wrapper {
+    margin-left: 1px;
+    margin-top: -15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-content: left;
+  }
+
+  .date-text {
+    margin-left: 8px;
+  }
+
+  .location-wrapper {
+    margin-left: 3px;
+    margin-top: -15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-content: left;
+    color: #777;
+  }
+
+  .location-text {
+    margin-left: 10px;
+    font-size: 12px;
+  }
+
+  .details-link {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border:none;
+    color: white;
+    background-color: #76B2FF;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .description-details {
+    margin-top: -15px;
+    font-size: 14px;
   }
   
-  .idea-details p {
-    font-size: 16px;
-    color: #444;
-    margin-bottom: 10px;
-  }
+  /* .image-container {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    flex-shrink: 0;
+    border-radius: 12px;
+    margin: auto;
+    margin-left: 15px;
+    display: flex;
+    justify-content: center;
+  } */
+
   
+
   .vote-buttons {
     display: flex;
-    gap: 12px;
-    margin-top: 15px;
+    gap: 40px;
+    margin-top: 20px;
+    justify-content: center;
   }
   
   .vote-buttons button {
-    flex: 1;
-    padding: 10px;
-    font-size: 16px;
+    width: 70px;
+    height: 70px;
+    padding: 0;
+    font-size: 20px;
     border: none;
-    border-radius: 8px;
+    border-radius: 50%;
     cursor: pointer;
-    transition: background 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .yes-button {
+    background-color: #C1D8AC; /* green */
   }
   
-  .vote-buttons button:hover {
+  .no-button {
+    background-color: #DFA5A5; /* red */
+  }
+  
+  /* .vote-buttons button:hover {
     background: #f1f1f1;
   }
   
@@ -68,4 +188,68 @@
   
   .vote-buttons button.selected:nth-child(2) {
     background: #E74C3C;
+  } */
+
+  .vote-progress-percent {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
+
+  .vote-progress-percent p{
+    margin-top: -13px;
+    font-size: 14px;
+    color: gray;
+  }
+
+  .vote-progress-percent h3{
+    margin-top: 5px;
+    font-size: 18px;
+    color: black;
+    font-weight: normal;
+  }
+  
+  .vote-progress-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  .vote-progress {
+    background-color: #e0e0e09d;
+    border-radius: 12px;
+    height: 20px;
+    flex-grow: 1;
+    overflow: hidden;
+  }
+  
+  .progress-bar {
+    background-color: #C1D8AC;
+    height: 100%;
+    transition: width 0.4s ease-in-out;
+    border-radius: 12px 0 0 12px;
+  }
+  
+  .edit-vote-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .edit-vote-button:hover {
+    color: #000;
+  }
+
+
+/*   
+  
+  .vote-buttons button.selected {
+    background-color: #4caf50;
+    color: white;
+  } */
+  
