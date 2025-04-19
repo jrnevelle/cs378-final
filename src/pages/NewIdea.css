@@ -1,7 +1,31 @@
 .new-idea-container {
    padding: 20px;
-   font-family: 'Segoe UI', sans-serif;
+   font-family: 'Geologica', sans-serif;
+   padding-bottom: 80px;
  }
+
+ .new-idea-title {
+  font-size: 35px;
+  font-weight: normal;
+  letter-spacing: 1px;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: -35px;
+  margin-bottom: 20px;
+}
+
+ .image-preview-container-new-idea {
+  display: flex;
+  justify-content: center;
+}
+
+.cover-image-new-idea {
+  max-width: 90%;
+  max-height: 300px;
+  border-radius: 16px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
  
  .new-idea-header {
    display: flex;
@@ -9,13 +33,23 @@
    gap: 10px;
    margin-bottom: 15px;
  }
- 
+
  .back-button {
-   background: none;
-   border: none;
-   font-size: 24px;
-   cursor: pointer;
- }
+  position: absolute;
+  top: 30px;
+  left: 15px;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;
+  color: white;
+  background: none;
+}
+
+.location-icon {
+  margin-left: 10px;
+}
  
  h1 {
    font-size: 28px;
@@ -36,6 +70,7 @@
  .new-idea-form input,
  .new-idea-form textarea {
    padding: 10px;
+   font-family: 'Geologica', sans-serif;
    border: 1px solid #ccc;
    border-radius: 8px;
    font-size: 16px;
@@ -52,14 +87,23 @@
    margin-top: 10px;
    padding: 12px;
    font-size: 16px;
-   background-color: #007bff;
+   background-color: #76B2FF;
    color: white;
    border: none;
    border-radius: 8px;
    cursor: pointer;
+   margin-bottom: 15px;
  }
  
  .submit-button:hover {
-   background-color: #0056b3;
+   background-color: #6494d3;
+ }
+
+ .description-container {
+  font-family: 'Geologica', sans-serif;
+  margin-top: -15px;
  }
  
+ .name-input {
+  margin-bottom: 15px;
+ }

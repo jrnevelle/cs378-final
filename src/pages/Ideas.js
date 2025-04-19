@@ -33,8 +33,8 @@ useEffect(() => {
     const dropdown = document.querySelector('.custom-dropdown');
 
     if (dropdown) {
-      dropdown.style.top = `${buttonRect.bottom + window.scrollY - 10}px`; // Position below button
-      dropdown.style.left = `${buttonRect.left + window.scrollX - 80}px`;  // Align with button
+      dropdown.style.top = `${buttonRect.bottom - 10}px`; // Position below button
+      dropdown.style.left = `${buttonRect.left - 80}px`;  // Align with button
     }
   }
 }, [showDropdown]);
@@ -48,14 +48,29 @@ useEffect(() => {
         const noVotes = idea.votes?.no?.length || 0;
         const totalVotes = yesVotes + noVotes;
         const acceptancePercentage = totalVotes > 0 ? (yesVotes / totalVotes) * 100 : 0;
-        return { ...idea, acceptancePercentage: acceptancePercentage.toFixed(2)};
+        return {
+          ...idea,
+          acceptancePercentage: acceptancePercentage.toFixed(2),
+          dateObj: idea.date?.toDate ? idea.date.toDate() : new Date(idea.date),
+        };
       });
 
-      processedIdeas.sort((a, b) => parseFloat(b.acceptancePercentage) - parseFloat(a.acceptancePercentage));
+      processedIdeas.sort((a, b) => {
+        const diff = parseFloat(b.acceptancePercentage) - parseFloat(a.acceptancePercentage);
+        if (diff !== 0) return diff;
+        return a.dateObj - b.dateObj;
+      });
+
+      processedIdeas.forEach(idea => {
+        console.log(`${idea.name} - ${idea.creatorId}`);
+      });
       setAllIdeas(processedIdeas);
     }
 
     fetchIdeas();
+    // allIdeas.map(idea => {
+    //   console.log(idea.name + " " + idea.creatorId);
+    // });
   }, [id]);
 
   useEffect(() => {
@@ -67,7 +82,7 @@ useEffect(() => {
           case 'archived':
             return idea.archived;
           case 'myIdeas':
-            return !idea.archived && idea.owner === userId;
+            return !idea.archived && idea.owner == userId;
           case 'voted':
             return !idea.archived && (idea.votes?.yes?.includes(userId) || idea.votes?.no?.includes(userId));
           case 'unvoted':

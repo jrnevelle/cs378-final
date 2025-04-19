@@ -82,3 +82,13 @@ export async function getTripMemberById(tripId, userId) {
     const memberSnap = await getDoc(memberRef);
     return memberSnap.exists() ? { id: memberSnap.id, ...memberSnap.data() } : null;
   }
+
+  // Get all members for a trip
+export async function getTripMembers(tripId) {
+  const membersRef = collection(db, 'trips', tripId, 'members');
+  const snapshot = await getDocs(membersRef);
+  return snapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+}

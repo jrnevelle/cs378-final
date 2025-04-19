@@ -9,6 +9,7 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { getUserId, getIdeas } from '../data/tripInfo';
 import './Calendar.css';
+import TripBanner from '../components/TripBanner';
 
 const localizer = momentLocalizer(moment);
 
@@ -78,7 +79,7 @@ function Calendar() {
 
   return (
     <div className="p-4 calendar-container">
-      <h2 className="text-2xl font-semibold mb-4">Trip Calendar for {id}</h2>
+      <TripBanner id={id}/>
       <BigCalendar
         localizer={localizer}
         events={allIdeas}
