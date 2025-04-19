@@ -15,11 +15,13 @@ import {
 } from 'firebase/firestore';
 import { nanoid } from 'nanoid';
 import './Settings.css';
+import { updateTrip } from '../data/tripInfo';
 
 function Settings() {
-  const { id: tripId } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const [trip, setTrip] = useState(null);
   const basePath = location.pathname.split('/').slice(0, -1).join('/');
 
   const [tripName, setTripName] = useState('');
@@ -28,22 +30,24 @@ function Settings() {
   const [joinCode, setJoinCode] = useState('');
   const [creatorId, setCreatorId] = useState(null);
   const [currentUserId, setCurrentUserId] = useState(null);
+  const [imageUrl, setImageUrl] = useState('');
 
   useEffect(() => {
     const fetchTrip = async () => {
-      const tripRef = doc(db, 'trips', tripId);
+      const tripRef = doc(db, 'trips', id);
       const tripSnap = await getDoc(tripRef);
       if (tripSnap.exists()) {
         const data = tripSnap.data();
-        setTripName(data.tripName || tripId);
+        setTripName(data.tripName || id);
         setThreshold(data.votingThreshold * 100 || 50);
         setJoinCode(data.joinCode || '');
         setCreatorId(data.creatorId);
+        setTrip(data);
       }
     };
 
     const fetchMembers = async () => {
-      const membersRef = collection(db, 'trips', tripId, 'members');
+      const membersRef = collection(db, 'trips', id, 'members');
       const snapshot = await getDocs(membersRef);
       const memberList = snapshot.docs.map((doc) => ({
         id: doc.id,
@@ -60,18 +64,24 @@ function Settings() {
     fetchMembers();
 
     return () => unsubscribe();
-  }, [tripId]);
+  }, [id]);
 
   const removeMember = async (memberId) => {
-    await deleteDoc(doc(db, 'trips', tripId, 'members', memberId));
+    await deleteDoc(doc(db, 'trips', id, 'members', memberId));
     setMembers(members.filter((m) => m.id !== memberId));
   };
 
   const regenerateJoinCode = async () => {
     const newCode = nanoid(6).toUpperCase();
-    await updateDoc(doc(db, 'trips', tripId), { joinCode: newCode });
+    await updateDoc(doc(db, 'trips', id), { joinCode: newCode });
     setJoinCode(newCode);
     alert('New join code generated!');
+  };
+
+  const handleImageUrlUpdate = async () => {
+    if (!imageUrl) return;
+    await updateTrip(id, { imageUrl });
+    setTrip((prev) => ({ ...prev, imageUrl }));
   };
 
   const addMember = async () => {
@@ -91,7 +101,7 @@ function Settings() {
     const userId = userDoc.id;
     const userData = userDoc.data();
 
-    await setDoc(doc(db, 'trips', tripId, 'members', userId), {
+    await setDoc(doc(db, 'trips', id, 'members', userId), {
       name: userData.name || email.split('@')[0],
       email,
       role: 'member',
@@ -100,9 +110,9 @@ function Settings() {
     const userRef = doc(db, 'users', userId);
     const existingTrips = userData.joinedTrips || [];
 
-    if (!existingTrips.includes(tripId)) {
+    if (!existingTrips.includes(id)) {
       await updateDoc(userRef, {
-        joinedTrips: [...existingTrips, tripId],
+        joinedTrips: [...existingTrips, id],
       });
     }
 
@@ -120,13 +130,13 @@ function Settings() {
 const saveChanges = async () => {
   const newThreshold = parseFloat(threshold) / 100;
 
-  await updateDoc(doc(db, 'trips', tripId), {
+  await updateDoc(doc(db, 'trips', id), {
     tripName,
     votingThreshold: newThreshold,
   });
 
   // Fetch all ideas for this trip
-  const ideasRef = collection(db, 'trips', tripId, 'ideas');
+  const ideasRef = collection(db, 'trips', id, 'ideas');
   const snapshot = await getDocs(ideasRef);
 
   snapshot.forEach(async (docSnap) => {
@@ -139,7 +149,7 @@ const saveChanges = async () => {
     // Archive if below new threshold
     const shouldArchive = percentage < newThreshold;
     if (idea.archived !== shouldArchive) {
-      await updateDoc(doc(db, 'trips', tripId, 'ideas', docSnap.id), {
+      await updateDoc(doc(db, 'trips', id, 'ideas', docSnap.id), {
         archived: shouldArchive,
       });
     }
@@ -164,6 +174,19 @@ const saveChanges = async () => {
           <FaUserCircle size={32} />
         </button>
       </div>
+
+      {trip && trip.imageUrl ? (
+            <img src={trip.imageUrl} alt="Trip" width="100%" style={{ borderRadius: '12px' }} />
+          ) : (
+            <p>No image uploaded.</p>
+          )}
+          <input
+            type="text"
+            placeholder="Enter Image URL"
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
+          />
+          <button onClick={handleImageUrlUpdate}>Save Image URL</button>
 
       <div className="settings-section">
         <h3>Members Attending</h3>

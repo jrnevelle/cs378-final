@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { FaHome, FaCalendarAlt, FaLightbulb, FaCog } from 'react-icons/fa';
+import { FiHome, FiCalendar, FiMap, FiSettings } from 'react-icons/fi';
+import { FaRegLightbulb } from 'react-icons/fa';
 import './Navbar.css';
 import { getTripInfo } from '../data/tripInfo';
 
@@ -14,7 +15,6 @@ const Navbar = () => {
   useEffect(() => {
     const fetchTripName = async () => {
       const tripInfo = await getTripInfo(tripId);
-      console.log(tripInfo);
       setName(tripInfo?.tripName || "Trip");
     };
     fetchTripName();
@@ -23,19 +23,53 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <NavLink to="/home" className="nav-button">
-        <FaHome />
+        {({ isActive }) => (
+          <div className="nav-item">
+            <FiHome className={`nav-icon ${isActive ? 'active' : ''}`} />
+            <div className={`nav-label ${isActive ? 'active' : ''}`}>All Trips</div>
+            {isActive && <div className="active-bar" />}
+          </div>
+        )}
       </NavLink>
+
       <NavLink to={`${basePath}/calendar`} className="nav-button">
-        <FaCalendarAlt />
+        {({ isActive }) => (
+          <div className="nav-item">
+            <FiCalendar className={`nav-icon ${isActive ? 'active' : ''}`} />
+            <div className={`nav-label ${isActive ? 'active' : ''}`}>Calendar</div>
+            {isActive && <div className="active-bar" />}
+          </div>
+        )}
       </NavLink>
-      <NavLink to={`${basePath}/home`} className="nav-button trip-name">
-        {name}
+
+      <NavLink to={`${basePath}/home`} className="nav-button">
+        {({ isActive }) => (
+          <div className="nav-item">
+            <FiMap className={`nav-icon ${isActive ? 'active' : ''}`} />
+            <div className={`nav-label ${isActive ? 'active' : ''}`}>Trip Home</div>
+            {isActive && <div className="active-bar" />}
+          </div>
+        )}
       </NavLink>
+
       <NavLink to={`${basePath}/ideas`} className="nav-button">
-        <FaLightbulb />
+        {({ isActive }) => (
+          <div className="nav-item">
+            <FaRegLightbulb className={`nav-icon ${isActive ? 'active' : ''}`} />
+            <div className={`nav-label ${isActive ? 'active' : ''}`}>Ideas</div>
+            {isActive && <div className="active-bar" />}
+          </div>
+        )}
       </NavLink>
+
       <NavLink to={`${basePath}/settings`} className="nav-button">
-        <FaCog />
+        {({ isActive }) => (
+          <div className="nav-item">
+            <FiSettings className={`nav-icon ${isActive ? 'active' : ''}`} />
+            <div className={`nav-label ${isActive ? 'active' : ''}`}>Settings</div>
+            {isActive && <div className="active-bar" />}
+          </div>
+        )}
       </NavLink>
     </div>
   );
