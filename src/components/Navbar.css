@@ -60,3 +60,16 @@
   background-color: #76B2FF;
   border-radius: 2px;
 }
+
+.nav-icon.logo-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  margin-bottom: 2px;
+  transition: filter 0.2s;
+}
+
+.nav-icon.logo-icon.active {
+  filter: none;
+}
+

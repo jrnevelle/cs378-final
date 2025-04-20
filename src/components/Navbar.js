@@ -4,6 +4,8 @@ import { FiHome, FiCalendar, FiMap, FiSettings } from 'react-icons/fi';
 import { FaRegLightbulb } from 'react-icons/fa';
 import './Navbar.css';
 import { getTripInfo } from '../data/tripInfo';
+import voteLogo from '../assets/vote_voyage_logo.png';
+
 
 const Navbar = () => {
   const location = useLocation();
@@ -25,8 +27,11 @@ const Navbar = () => {
       <NavLink to="/home" className="nav-button">
         {({ isActive }) => (
           <div className="nav-item">
-            <FiHome className={`nav-icon ${isActive ? 'active' : ''}`} />
-            <div className={`nav-label ${isActive ? 'active' : ''}`}>All Trips</div>
+            <img
+              src={voteLogo}
+              alt="Vote Voyage"
+              className={`nav-icon logo-icon ${isActive ? 'active' : ''}`}
+            />
             {isActive && <div className="active-bar" />}
           </div>
         )}
@@ -36,7 +41,9 @@ const Navbar = () => {
         {({ isActive }) => (
           <div className="nav-item">
             <FiCalendar className={`nav-icon ${isActive ? 'active' : ''}`} />
-            <div className={`nav-label ${isActive ? 'active' : ''}`}>Calendar</div>
+            <div className={`nav-label ${isActive ? 'active' : ''}`}>
+              Calendar
+            </div>
             {isActive && <div className="active-bar" />}
           </div>
         )}
@@ -46,7 +53,9 @@ const Navbar = () => {
         {({ isActive }) => (
           <div className="nav-item">
             <FiMap className={`nav-icon ${isActive ? 'active' : ''}`} />
-            <div className={`nav-label ${isActive ? 'active' : ''}`}>Trip Home</div>
+            <div className={`nav-label ${isActive ? 'active' : ''}`}>
+              Trip Home
+            </div>
             {isActive && <div className="active-bar" />}
           </div>
         )}
@@ -55,7 +64,9 @@ const Navbar = () => {
       <NavLink to={`${basePath}/ideas`} className="nav-button">
         {({ isActive }) => (
           <div className="nav-item">
-            <FaRegLightbulb className={`nav-icon ${isActive ? 'active' : ''}`} />
+            <FaRegLightbulb
+              className={`nav-icon ${isActive ? 'active' : ''}`}
+            />
             <div className={`nav-label ${isActive ? 'active' : ''}`}>Ideas</div>
             {isActive && <div className="active-bar" />}
           </div>
@@ -66,7 +77,9 @@ const Navbar = () => {
         {({ isActive }) => (
           <div className="nav-item">
             <FiSettings className={`nav-icon ${isActive ? 'active' : ''}`} />
-            <div className={`nav-label ${isActive ? 'active' : ''}`}>Settings</div>
+            <div className={`nav-label ${isActive ? 'active' : ''}`}>
+              Settings
+            </div>
             {isActive && <div className="active-bar" />}
           </div>
         )}

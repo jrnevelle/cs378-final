@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaUserCircle } from 'react-icons/fa';
-import { auth, db } from '../data/firebaseConfig'; // ✅ correct filename + path
+import { auth, db } from '../data/firebaseConfig';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import LogoutButton from '../components/LogoutButton.jsx';
-
 import './Profile.css';
+import logo from '../assets/vote_voyage_logo.png';
 
 function Profile() {
   const navigate = useNavigate();
-  const user = auth.currentUser;
-  const goBack = () => navigate(-1);
-  const [uid, setUid] = useState("");
-
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true); // new
   const [profile, setProfile] = useState({
     name: '',
     phone: '',
@@ -21,20 +18,25 @@ function Profile() {
   });
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      if (!user) return;
-      const docRef = doc(db, 'users', user.uid);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        setProfile((prev) => ({
-          ...prev,
-          ...docSnap.data(),
-        }));
+    const unsubscribe = auth.onAuthStateChanged(async (firebaseUser) => {
+      if (firebaseUser) {
+        setUser(firebaseUser);
+        const docRef = doc(db, 'users', firebaseUser.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setProfile((prev) => ({
+            ...prev,
+            ...docSnap.data(),
+          }));
+        }
+      } else {
+        navigate('/login');
       }
-    };
-    fetchProfile();
-    console.log(user.uid);
-  }, [user]);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, [navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -48,16 +50,24 @@ function Profile() {
     alert('Profile updated!');
   };
 
+  if (loading) return <p>Loading...</p>;
+
   return (
     <div className="profile-container">
-      <button className="back-button" onClick={goBack}>
+      <img src={logo} alt="Vote Voyage Logo" className="profile-logo" />
+
+      <button className="back-button" onClick={() => navigate(-1)}>
         ← Back
       </button>
+
       <h2>My Profile</h2>
 
       <div className="profile-icon">
-        <img src={`https://www.tapback.co/api/avatar/${user.uid}.webp`}>
-        </img>
+        <img
+          src={`https://www.tapback.co/api/avatar/${user.uid}.webp`}
+          alt="Profile Avatar"
+          className="avatar-image"
+        />
       </div>
 
       <div className="profile-form">
@@ -103,6 +113,7 @@ function Profile() {
       <button className="save-button" onClick={handleSave}>
         Save Changes
       </button>
+
       <LogoutButton />
     </div>
   );

@@ -1,58 +1,78 @@
 .profile-container {
-   max-width: 400px;
-   margin: 0 auto;
-   padding: 20px;
-   font-family: sans-serif;
- }
- 
- .back-button {
-   background: none;
-   border: none;
-   background-color: #76B2FF;
-   font-size: 16px;
-   cursor: pointer;
-   margin-bottom: 10px;
- }
- 
- .profile-icon {
-   display: flex;
-   justify-content: center;
-   margin: 20px 0;
-   color: #888;
- }
- 
- .profile-form {
-   display: flex;
-   flex-direction: column;
-   gap: 15px;
- }
- 
- .profile-form label {
-   display: flex;
-   flex-direction: column;
-   font-size: 14px;
-   color: #444;
- }
- 
- .profile-form input {
-   padding: 8px;
-   border: 1px solid #ccc;
-   border-radius: 6px;
- }
- 
- .save-button {
-   margin-top: 20px;
-   width: 100%;
-   padding: 10px;
-   background-color: #76B2FF;
-   border: none;
-   color: white;
-   border-radius: 6px;
-   font-size: 16px;
-   cursor: pointer;
- }
- 
- .save-button:hover {
-   background-color: #0056b3;
- }
- 
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 24px;
+  font-family: 'Geologica', sans-serif;
+  text-align: center;
+}
+
+.profile-logo {
+  width: 80px;
+  margin-bottom: 20px;
+}
+
+.back-button {
+  background-color: #76B2FF;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.profile-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  background: none; /* 🧼 Removes the blue box */
+  padding: 0;
+  border: none;
+}
+
+.avatar-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: none; /* also make sure image itself has no background */
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: left;
+}
+
+.profile-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  color: #444;
+}
+
+.profile-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #f8f8f8;
+}
+
+.save-button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  background-color: #76B2FF;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.save-button:hover {
+  background-color: #5fa2e6;
+}

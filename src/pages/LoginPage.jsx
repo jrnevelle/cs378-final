@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../data/firebaseConfig';
+import logo from '../assets/vote_voyage_logo.png';
+
+import './Auth.css';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -22,13 +25,14 @@ const LoginPage = () => {
       navigate('/home');
     } catch (err) {
       console.error(err);
-      setError(err.message);
+      setError('Invalid email or password');
     }
     setLoading(false);
   };
 
   return (
-    <div style={{ maxWidth: '400px', margin: '0 auto' }}>
+    <div className="auth-container">
+      <img src={logo} alt="Vote Voyage Logo" className="logo" />
       <h2>Log In</h2>
       <form onSubmit={handleLogin}>
         <input
@@ -52,7 +56,7 @@ const LoginPage = () => {
         </button>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <p>
-          Don't have an account? <a href="/signup">Sign Up</a>
+          Don’t have an account? <a href="/signup">Sign Up</a>
         </p>
       </form>
     </div>

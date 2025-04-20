@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../data/firebaseConfig';
+import logo from '../assets/vote_voyage_logo.png';
+
+import './Auth.css';
 
 const SignupPage = () => {
   const [formData, setFormData] = useState({
@@ -42,14 +45,15 @@ const SignupPage = () => {
       navigate('/welcome');
     } catch (err) {
       console.error(err);
-      setError(err.message);
+      setError('Signup failed. Try again.');
     }
 
     setLoading(false);
   };
 
   return (
-    <div style={{ maxWidth: '400px', margin: '0 auto' }}>
+    <div className="auth-container">
+      <img src={logo} alt="Vote Voyage Logo" className="logo" />
       <h2>Sign Up</h2>
       <form onSubmit={handleSignup}>
         <input
