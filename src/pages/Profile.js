@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaUserCircle } from 'react-icons/fa';
+import { FaArrowLeft, FaUserCircle } from 'react-icons/fa';
 import { auth, db } from '../data/firebaseConfig'; // ✅ correct filename + path
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import LogoutButton from '../components/LogoutButton.jsx';
@@ -50,12 +50,14 @@ function Profile() {
 
   return (
     <div className="profile-container">
-      <button className="back-button" onClick={goBack}>
-        ← Back
-      </button>
-      <h2>My Profile</h2>
+      <div className="profile-header">
+        <button className="profile-back-button" onClick={goBack}>
+          <FaArrowLeft size="24" />
+        </button>
+        <h2 className='profile-title'>My Profile</h2>
+      </div>
 
-      <div className="profile-icon">
+      <div className="profile-profile-icon">
         <img src={`https://www.tapback.co/api/avatar/${user.uid}.webp`}>
         </img>
       </div>
@@ -103,7 +105,7 @@ function Profile() {
       <button className="save-button" onClick={handleSave}>
         Save Changes
       </button>
-      <LogoutButton />
+      <LogoutButton className="logout-button"/>
     </div>
   );
 }

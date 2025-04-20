@@ -5,16 +5,38 @@
    font-family: sans-serif;
  }
  
- .back-button {
-   background: none;
-   border: none;
-   background-color: #76B2FF;
-   font-size: 16px;
-   cursor: pointer;
-   margin-bottom: 10px;
- }
+ .profile-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.profile-back-button {
+  position: absolute;
+  left: 0;
+  background-color: transparent;
+  color: #76B2FF;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.profile-title {
+  margin: 0;
+  font-size: 28px;
+  color: #333;
+  margin-top: 30px;
+}
+
+
+
  
- .profile-icon {
+ .profile-profile-icon {
    display: flex;
    justify-content: center;
    margin: 20px 0;
@@ -55,4 +77,4 @@
  .save-button:hover {
    background-color: #0056b3;
  }
- 
+
