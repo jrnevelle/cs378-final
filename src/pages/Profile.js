@@ -1,15 +1,20 @@
+
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaUserCircle } from 'react-icons/fa';
 import { auth, db } from '../data/firebaseConfig';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import LogoutButton from '../components/LogoutButton.jsx';
+import logo from '../assets/vote_voyage_logo.png'; // adjust path if needed
 import './Profile.css';
-import logo from '../assets/vote_voyage_logo.png';
 
 function Profile() {
   const navigate = useNavigate();
+  const goBack = () => navigate(-1);
+
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // new
+  const [loading, setLoading] = useState(true);
+
   const [profile, setProfile] = useState({
     name: '',
     phone: '',
@@ -50,15 +55,18 @@ function Profile() {
     alert('Profile updated!');
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading || !user) return <p>Loading...</p>;
 
   return (
     <div className="profile-container">
-      <img src={logo} alt="Vote Voyage Logo" className="profile-logo" />
-
-      <button className="back-button" onClick={() => navigate(-1)}>
+      <button className="back-button" onClick={goBack}>
         ← Back
       </button>
+      <img
+        src={logo}
+        alt="Vote Voyage Logo"
+        style={{ width: '80px', height: '80px' }}
+      />
 
       <h2>My Profile</h2>
 
@@ -66,7 +74,6 @@ function Profile() {
         <img
           src={`https://www.tapback.co/api/avatar/${user.uid}.webp`}
           alt="Profile Avatar"
-          className="avatar-image"
         />
       </div>
 
@@ -113,10 +120,10 @@ function Profile() {
       <button className="save-button" onClick={handleSave}>
         Save Changes
       </button>
-
       <LogoutButton />
     </div>
   );
 }
 
 export default Profile;
+

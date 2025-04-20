@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   collection,
@@ -12,11 +12,24 @@ import {
 } from 'firebase/firestore';
 import { auth, db } from '../data/firebaseConfig';
 import './WelcomePage.css';
+import logo from '../assets/vote_voyage_logo.png';
 
 const WelcomePage = () => {
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
+  const [userId, setUserId] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUserId(user.uid);
+      } else {
+        navigate('/login');
+      }
+    });
+    return () => unsubscribe();
+  }, [navigate]);
 
   const handleJoinTrip = async () => {
     setError('');
@@ -34,14 +47,12 @@ const WelcomePage = () => {
       const tripId = tripDoc.id;
       const user = auth.currentUser;
 
-      // Add to trip members
       await setDoc(doc(db, 'trips', tripId, 'members', user.uid), {
         name: user.displayName || user.email.split('@')[0],
         email: user.email,
         role: 'member',
       });
 
-      // Add trip to user's joinedTrips
       const userRef = doc(db, 'users', user.uid);
       const userSnap = await getDoc(userRef);
       const existingTrips = userSnap.data().joinedTrips || [];
@@ -59,12 +70,40 @@ const WelcomePage = () => {
 
   return (
     <div className="welcome-container">
-      <h2>Welcome to Vote Voyage! 🎉</h2>
-      <p>You haven’t joined any trips yet.</p>
-      <Link to="/plan-new-trip" className="button">
-        Plan a New Trip
-      </Link>
-      
+      <div className="top-bar">
+        <img src={logo} alt="Vote Voyage Logo" className="welcome-logo" />
+        <Link to="/profile" className="profile-icon">
+          {userId && (
+            <img
+              src={`https://www.tapback.co/api/avatar/${userId}.webp`}
+              alt="Profile"
+            />
+          )}
+        </Link>
+      </div>
+
+      <div className="hero">
+        <div className="hero-text">
+          <h1>
+            Welcome to <span>Vote Voyage</span> ✈️
+          </h1>
+          <p>
+            Collaboratively plan trips with friends. Add ideas, vote on
+            activities, and build an itinerary together!
+          </p>
+          <Link to="/plan-new-trip" className="button">
+            Plan a New Trip
+          </Link>
+        </div>
+        <img
+          src="https://images.unsplash.com/photo-1502920917128-1aa500764b8e"
+          alt="Travel"
+          className="hero-image"
+        />
+      </div>
+
+   
+
       <div className="join-section">
         <p>Or join a trip with a code:</p>
         <input
@@ -76,7 +115,7 @@ const WelcomePage = () => {
         <button className="button" onClick={handleJoinTrip}>
           Join Trip
         </button>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <p className="error-text">{error}</p>}
       </div>
     </div>
   );
