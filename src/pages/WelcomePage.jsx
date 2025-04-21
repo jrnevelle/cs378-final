@@ -12,7 +12,7 @@ import {
 } from 'firebase/firestore';
 import { auth, db } from '../data/firebaseConfig';
 import './WelcomePage.css';
-import logo from '../assets/vote_voyage_logo.png';
+import logo from '../assets/full_logo.png';
 
 const WelcomePage = () => {
   const [code, setCode] = useState('');

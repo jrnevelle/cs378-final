@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../data/firebaseConfig';
-import logo from '../assets/vote_voyage_logo.png';
+import logo from '../assets/full_logo.png';
 
 import './Auth.css';
 

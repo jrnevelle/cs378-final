@@ -1,12 +1,13 @@
 
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaUserCircle } from 'react-icons/fa';
+import { FaArrowLeft, FaUserCircle } from 'react-icons/fa';
 import { auth, db } from '../data/firebaseConfig';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import LogoutButton from '../components/LogoutButton.jsx';
 import logo from '../assets/vote_voyage_logo.png'; // adjust path if needed
 import './Profile.css';
+import { FiArrowLeft } from 'react-icons/fi';
 
 function Profile() {
   const navigate = useNavigate();
@@ -59,18 +60,17 @@ function Profile() {
 
   return (
     <div className="profile-container">
-      <button className="back-button" onClick={goBack}>
-        ← Back
+      <div className="profile-page-header">
+      <button className="profile-back-button" onClick={goBack}>
+        <FiArrowLeft size="40"/>
       </button>
-      <img
-        src={logo}
-        alt="Vote Voyage Logo"
-        style={{ width: '80px', height: '80px' }}
-      />
+      <h2 className="profile-page-title">My Profile</h2>
+      <img src={logo} alt="Vote Voyage Logo" className="profile-page-logo" />
+      
+    </div>
 
-      <h2>My Profile</h2>
 
-      <div className="profile-icon">
+      <div className="profile-page-icon">
         <img
           src={`https://www.tapback.co/api/avatar/${user.uid}.webp`}
           alt="Profile Avatar"

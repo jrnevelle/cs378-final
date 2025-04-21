@@ -4,7 +4,7 @@ import { FiHome, FiCalendar, FiMap, FiSettings } from 'react-icons/fi';
 import { FaRegLightbulb } from 'react-icons/fa';
 import './Navbar.css';
 import { getTripInfo } from '../data/tripInfo';
-import voteLogo from '../assets/vote_voyage_logo.png';
+import voteLogo from '../assets/gray_logo.png';
 
 
 const Navbar = () => {
@@ -30,8 +30,11 @@ const Navbar = () => {
             <img
               src={voteLogo}
               alt="Vote Voyage"
-              className={`nav-icon logo-icon ${isActive ? 'active' : ''}`}
+              className={`nav-icon logo-icon ${isActive ? 'active' : ''} all_trips`}
             />
+            <div className={`nav-label ${isActive ? 'active' : ''}`}>
+              All Trips
+            </div>
             {isActive && <div className="active-bar" />}
           </div>
         )}

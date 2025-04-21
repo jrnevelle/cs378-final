@@ -69,6 +69,15 @@
   transition: filter 0.2s;
 }
 
+.nav-icon.logo-icon.all_trips {
+  width: 35px;
+  height: 40px;
+  object-fit: contain;
+  margin-bottom: -6px;
+  transition: filter 0.2s;
+  margin-top: -10px;
+}
+
 .nav-icon.logo-icon.active {
   filter: none;
 }

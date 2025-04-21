@@ -1,31 +1,51 @@
 .profile-container {
   position: relative;
   max-width: 430px;
-  margin: 40px auto;
-  padding: 40px 24px 40px;
+  margin: 10px auto;
+  padding: 20px 24px 40px;
   font-family: 'Geologica', sans-serif;
   text-align: center;
   border-radius: 20px;
 }
 
-.back-button {
-  position: absolute;
-top: 8px; 
-  left: 20px;
-  color: #357EC7 !important;
-  border: none;
-  padding: 8px 14px;
-  border-radius: none;
-  font-size: 18px;
-  font-family: 'Geologica', sans-serif;
-  cursor: pointer;
+.profile-page-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* center content (title) */
+  margin-bottom: 24px;
+  height: 60px;
 }
 
-h2 {
-  margin-top: 0;
-  font-size: 26px;
+.profile-back-button {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  color: #357EC7;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0 8px;
+}
+
+.profile-page-logo {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.profile-page-title {
+  font-size: 30px;
   font-weight: 700;
-  color: #357EC7; /* shade of blue */
+  color: #357EC7;
+  margin: 0 auto;
 }
 
 .profile-icon {

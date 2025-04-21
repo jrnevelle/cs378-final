@@ -15,6 +15,7 @@ import {
   setDoc,
   getDoc,
 } from 'firebase/firestore';
+import logo from '../assets/full_logo.png'
 
 function Home() {
   const [trips, setTrips] = useState([]);
@@ -94,12 +95,16 @@ function Home() {
 
   return (
     <div className="Home">
-      <Link to="/profile" className="profile">
-        <img
-          src={`https://www.tapback.co/api/avatar/${userId}.webp`}
-          alt="Profile"
-        />
-      </Link>
+      <div className="top-bar">
+        <img src={logo} alt="Vote Voyage" className="logo" />
+        <Link to="/profile" className="home-profile">
+          <img
+            src={`https://www.tapback.co/api/avatar/${userId}.webp`}
+            alt="Profile"
+          />
+        </Link>
+      </div>
+
 
       {isNewUser ? (
         <div className="welcome-section">
@@ -127,10 +132,10 @@ function Home() {
           <h3>Current Trips</h3>
           <Carousel data={trips} onTripClick={handleTripClick} />
           <div className="action-buttons">
-            <Link to="/plan-new-trip" className="button">
+            <Link to="/plan-new-trip" className="action-button">
               Plan New Trip
             </Link>
-            <Link to="/past-trips" className="button">
+            <Link to="/past-trips" className="action-button">
               View Past Trips
             </Link>
           </div>
