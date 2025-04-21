@@ -31,6 +31,19 @@
    background-color: #76B2FF;
    cursor: pointer;
  }
+
+ .image-url-input {
+  width: 100%;
+  font-size: 16px;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: white;
+  font-family: 'Geologica', sans-serif;
+  box-sizing: border-box;
+}
+
  
 .settings-section {
   background-color: #e0f2ff;
@@ -81,9 +94,17 @@
    align-items: center;
    gap: 12px;
  }
+
+ .member-info-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+ }
  
  .member-name {
    font-weight: 600;
+   
  }
  
  .member-email {

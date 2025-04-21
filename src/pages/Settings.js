@@ -43,6 +43,7 @@ function Settings() {
         setJoinCode(data.joinCode || '');
         setCreatorId(data.creatorId);
         setTrip(data);
+        setImageUrl(data.imageUrl);
       }
     };
 
@@ -133,6 +134,7 @@ function Settings() {
     await updateDoc(doc(db, 'trips', id), {
       tripName,
       votingThreshold: newThreshold,
+      imageUrl: imageUrl
     });
 
     // Fetch all ideas for this trip
@@ -198,6 +200,14 @@ function Settings() {
       ) : (
         <p>No image uploaded.</p>
       )}
+      <input
+        type="text"
+        className="image-url-input"
+        placeholder="Trip Image URL"
+        value={imageUrl}
+        onChange={(e) => setImageUrl(e.target.value)}
+      />
+
 
       <div className="settings-section">
         <h3>Members Attending</h3>
@@ -205,8 +215,13 @@ function Settings() {
           {members.map((member) => (
             <li key={member.id} className="member-item">
               <div className="member-info">
-                <FaUserCircle size={28} className="member-avatar" />
-                <div>
+              <img
+                src={`https://www.tapback.co/api/avatar/${member.id}.webp`}
+                alt={`${member.name} Avatar`}
+                style={{height: '28px'}}
+                className='member-avatar'
+              />
+                <div className='member-info-text'>
                   <div className="member-name">{member.name}</div>
                   <div className="member-email">{member.email}</div>
                 </div>
