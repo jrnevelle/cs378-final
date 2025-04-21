@@ -5,21 +5,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 40px 20px;
+  padding: 140px 20px;
   min-height: 100vh;
   background-color: #fff;
   font-family: 'Geologica', sans-serif;
-}
-
-.top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 0 20px;
-  margin-bottom: 100px;
-  margin-top: 60px;
-  position: relative;
 }
 
 .logo {
@@ -27,19 +16,17 @@
   left: 50%;
   transform: translateX(-50%); 
   height: 200px;
-  object-fit: contain;
-  margin-top: 40px;
-  
+  object-fit: contain;  
 }
 
 .home-profile {
-  width: 40px;
-  height: 40px;
+  width: 62px;
+  height: 62px;
   border-radius: 50%;
   overflow: hidden;
   position: absolute;
-  right: 20px;
-  margin-top: -110px;
+  right: 15px;
+  margin-top: -150px;
 }
 
 .home-profile img {
@@ -56,13 +43,18 @@
   align-items: center;
   max-width: 100%;
   font-family: 'Geologica', sans-serif;
+  margin-top: 1rem;
+}  
+
+.trip-carousel h3{
+  font-size: 30px;
 }
 
 .carousel {
   max-width: 400px;
   width: 100%;
   margin: 0 auto;
-  margin-top: -30px;
+  margin-top: -10px;
 }
 
 .action-buttons {

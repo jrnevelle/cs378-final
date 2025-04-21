@@ -1,6 +1,6 @@
 .create-trip-container {
   max-width: 500px;
-  margin: 4rem auto;
+  margin: 6rem auto;
   text-align: center;
 }
 
@@ -11,6 +11,7 @@
   font-size: 16px;
 }
 
+
 .create-trip-container button {
   background-color: #2f80ed;
   color: white;
@@ -20,3 +21,19 @@
   border-radius: 6px;
   cursor: pointer;
 }
+
+.profile-back-button {
+  position: absolute;
+  left: 0;
+  top: 40px;
+  transform: translateY(-50%);
+  background: none !important;
+  color: #357EC7 !important;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0 8px;
+}
+
+

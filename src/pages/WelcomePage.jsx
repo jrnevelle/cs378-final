@@ -71,7 +71,6 @@ const WelcomePage = () => {
   return (
     <div className="welcome-container">
       <div className="top-bar">
-        <img src={logo} alt="Vote Voyage Logo" className="welcome-logo" />
         <Link to="/profile" className="profile-icon">
           {userId && (
             <img
@@ -84,27 +83,22 @@ const WelcomePage = () => {
 
       <div className="hero">
         <div className="hero-text">
-          <h1>
-            Welcome to <span>Vote Voyage</span> ✈️
+          <h1 className="welcome-heading">
+            Welcome to{' '}
+            <img src={logo} alt="Vote Voyage Logo" className="inline-logo" />
           </h1>
           <p>
             Collaboratively plan trips with friends. Add ideas, vote on
             activities, and build an itinerary together!
           </p>
-          <Link to="/plan-new-trip" className="button">
-            Plan a New Trip
-          </Link>
+          <h2>Your Crew. Your Votes. Your Voyage.</h2>
         </div>
-        <img
-          src="https://images.unsplash.com/photo-1502920917128-1aa500764b8e"
-          alt="Travel"
-          className="hero-image"
-        />
       </div>
 
-   
-
       <div className="join-section">
+        <Link to="/plan-new-trip" className="button">
+          Plan a New Trip
+        </Link>
         <p>Or join a trip with a code:</p>
         <input
           type="text"

@@ -127,37 +127,36 @@ function Settings() {
     ]);
   };
 
-const saveChanges = async () => {
-  const newThreshold = parseFloat(threshold) / 100;
+  const saveChanges = async () => {
+    const newThreshold = parseFloat(threshold) / 100;
 
-  await updateDoc(doc(db, 'trips', id), {
-    tripName,
-    votingThreshold: newThreshold,
-  });
+    await updateDoc(doc(db, 'trips', id), {
+      tripName,
+      votingThreshold: newThreshold,
+    });
 
-  // Fetch all ideas for this trip
-  const ideasRef = collection(db, 'trips', id, 'ideas');
-  const snapshot = await getDocs(ideasRef);
+    // Fetch all ideas for this trip
+    const ideasRef = collection(db, 'trips', id, 'ideas');
+    const snapshot = await getDocs(ideasRef);
 
-  snapshot.forEach(async (docSnap) => {
-    const idea = docSnap.data();
-    const yes = idea.votes?.yes?.length || 0;
-    const no = idea.votes?.no?.length || 0;
-    const total = yes + no;
-    const percentage = total > 0 ? yes / total : 0;
+    snapshot.forEach(async (docSnap) => {
+      const idea = docSnap.data();
+      const yes = idea.votes?.yes?.length || 0;
+      const no = idea.votes?.no?.length || 0;
+      const total = yes + no;
+      const percentage = total > 0 ? yes / total : 0;
 
-    // Archive if below new threshold
-    const shouldArchive = percentage < newThreshold;
-    if (idea.archived !== shouldArchive) {
-      await updateDoc(doc(db, 'trips', id, 'ideas', docSnap.id), {
-        archived: shouldArchive,
-      });
-    }
-  });
+      // Archive if below new threshold
+      const shouldArchive = percentage < newThreshold;
+      if (idea.archived !== shouldArchive) {
+        await updateDoc(doc(db, 'trips', id, 'ideas', docSnap.id), {
+          archived: shouldArchive,
+        });
+      }
+    });
 
-  alert('Trip settings updated and ideas re-evaluated!');
-};
-
+    alert('Trip settings updated and ideas re-evaluated!');
+  };
 
   return (
     <div className="settings-wrapper">
@@ -167,26 +166,38 @@ const saveChanges = async () => {
           value={tripName}
           onChange={(e) => setTripName(e.target.value)}
         />
-        <button
-          className="profile-icon"
-          onClick={() => navigate(`${basePath}/profile`)}
-        >
-          <FaUserCircle size={32} />
-        </button>
+        {currentUserId && (
+          <button
+            className="profile-icon"
+            onClick={() => navigate(`${basePath}/profile`)}
+            style={{ padding: 0, border: 'none', background: 'none' }}
+          >
+            <img
+              src={`https://www.tapback.co/api/avatar/${currentUserId}.webp`}
+              alt="Profile Avatar"
+              style={{
+                height: '62px',
+                width: '62px',
+                borderRadius: '50%',
+                objectFit: 'cover',
+                marginLeft: '15px',
+                marginRight: '-5px',
+              }}
+            />
+          </button>
+        )}
       </div>
 
       {trip && trip.imageUrl ? (
-            <img src={trip.imageUrl} alt="Trip" width="100%" style={{ borderRadius: '12px' }} />
-          ) : (
-            <p>No image uploaded.</p>
-          )}
-          <input
-            type="text"
-            placeholder="Enter Image URL"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-          />
-          <button onClick={handleImageUrlUpdate}>Save Image URL</button>
+        <img
+          src={trip.imageUrl}
+          alt="Trip"
+          width="100%"
+          style={{ borderRadius: '12px' }}
+        />
+      ) : (
+        <p>No image uploaded.</p>
+      )}
 
       <div className="settings-section">
         <h3>Members Attending</h3>
@@ -230,21 +241,31 @@ const saveChanges = async () => {
       <div className="settings-section">
         <h3>Trip Join Code</h3>
         <p style={{ fontWeight: 'bold', fontSize: '18px' }}>{joinCode}</p>
-        <button
-          className="button"
-          onClick={() => {
-            navigator.clipboard.writeText(joinCode);
-            alert('Join code copied to clipboard!');
+
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: '10px',
+            alignItems: 'center',
           }}
         >
-          Copy Code
-        </button>
-
-        {currentUserId === creatorId && (
-          <button className="button" onClick={regenerateJoinCode}>
-            Regenerate Join Code
+          <button
+            className="button"
+            onClick={() => {
+              navigator.clipboard.writeText(joinCode);
+              alert('Join code copied to clipboard!');
+            }}
+          >
+            Copy Code
           </button>
-        )}
+
+          {currentUserId === creatorId && (
+            <button className="button" onClick={regenerateJoinCode}>
+              Regenerate Join Code
+            </button>
+          )}
+        </div>
       </div>
 
       <button className="save-button" onClick={saveChanges}>

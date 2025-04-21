@@ -33,7 +33,7 @@ const LoginPage = () => {
   return (
     <div className="auth-container">
       <img src={logo} alt="Vote Voyage Logo" className="logo" />
-      <h2>Log In</h2>
+      <h2 className="auth-heading">Log In</h2>
       <form onSubmit={handleLogin}>
         <input
           type="email"

@@ -15,13 +15,13 @@ import {
   setDoc,
   getDoc,
 } from 'firebase/firestore';
-import logo from '../assets/full_logo.png'
+import logo from '../assets/full_logo.png';
 
 function Home() {
   const [trips, setTrips] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const [userId, setUserId] = useState("");
+  const [userId, setUserId] = useState('');
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
 
@@ -104,7 +104,6 @@ function Home() {
           />
         </Link>
       </div>
-
 
       {isNewUser ? (
         <div className="welcome-section">
